@@ -61,7 +61,7 @@
         "karma-firefox-launcher": "latest",
         "karma-qunit": "latest",
         "karma-sauce-launcher": "latest",
-        "qunit": "^0.7.5",
+        "qunit": "latest",
         "qunit-cli": "^0.1.4",
         "rollup": "latest",
         "spacejam": "latest",
