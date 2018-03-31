@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('fr');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var i,
         tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split('_');
 
@@ -23,7 +24,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a', 'dimanche, février 14 2010, 3:25:50 pm'],
             ['ddd, hA',                       'dim., 3PM'],
@@ -58,7 +59,7 @@ test('format', function (assert) {
     }
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2017, 0, 1]).format('Mo'),     '1er',     '1er');
     assert.equal(moment([2017, 1, 1]).format('Mo'),     '2e',      '2e');
 
@@ -110,7 +111,7 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2017, 0, 11]).format('wo Wo'), '2e 2e',   '2e 2e');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var i,
         expected = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split('_');
 
@@ -119,7 +120,7 @@ test('format month', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var i,
         expected = 'dimanche dim. di_lundi lun. lu_mardi mar. ma_mercredi mer. me_jeudi jeu. je_vendredi ven. ve_samedi sam. sa'.split('_');
 
@@ -128,7 +129,7 @@ test('format week', function (assert) {
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
 
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'quelques secondes', '44 seconds = a few seconds');
@@ -161,17 +162,17 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 ans',             '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'dans quelques secondes',   'prefix');
     assert.equal(moment(0).from(30000), 'il y a quelques secondes', 'suffix');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'dans quelques secondes', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(),  'dans 5 jours',           'in 5 days');
 });
 
-test('same day', function (assert) {
+QUnit.test('same day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                  'Aujourd’hui à 12:00', 'Today at the same time');
@@ -182,7 +183,7 @@ test('same day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(), 'Hier à 12:00',        'Yesterday at the same time');
 });
 
-test('same next week', function (assert) {
+QUnit.test('same next week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -195,7 +196,7 @@ test('same next week', function (assert) {
     }
 });
 
-test('same last week', function (assert) {
+QUnit.test('same last week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -208,7 +209,7 @@ test('same last week', function (assert) {
     }
 });
 
-test('same all else', function (assert) {
+QUnit.test('same all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -222,7 +223,7 @@ test('same all else', function (assert) {
     assert.equal(weeksFromNow.calendar(), weeksFromNow.format('L'), 'in 2 weeks');
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+QUnit.test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52e', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012, 0,  2]).format('w ww wo'), '1 01 1re',  'Jan  2 2012 should be week 1');
     assert.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1re',  'Jan  8 2012 should be week 1');

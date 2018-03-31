@@ -1,16 +1,17 @@
-import { module, test } from '../qunit';
+
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('invalid');
 
-test('invalid', function (assert) {
+QUnit.test('invalid', function (assert) {
     var m = moment.invalid();
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, true);
     assert.ok(isNaN(m.valueOf()));
 });
 
-test('invalid with existing flag', function (assert) {
+QUnit.test('invalid with existing flag', function (assert) {
     var m = moment.invalid({invalidMonth : 'whatchamacallit'});
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
@@ -18,7 +19,7 @@ test('invalid with existing flag', function (assert) {
     assert.ok(isNaN(m.valueOf()));
 });
 
-test('invalid with custom flag', function (assert) {
+QUnit.test('invalid with custom flag', function (assert) {
     var m = moment.invalid({tooBusyWith : 'reiculating splines'});
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
@@ -26,7 +27,7 @@ test('invalid with custom flag', function (assert) {
     assert.ok(isNaN(m.valueOf()));
 });
 
-test('invalid operations', function (assert) {
+QUnit.test('invalid operations', function (assert) {
     var invalids = [
             moment.invalid(),
             moment('xyz', 'l'),
@@ -37,7 +38,7 @@ test('invalid operations', function (assert) {
         invalid,
         valid = moment();
 
-    test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
+    QUnit.test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
 
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];

@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('leap year');
 
-test('leap year', function (assert) {
+QUnit.test('leap year', function (assert) {
     assert.equal(moment([2010, 0, 1]).isLeapYear(), false, '2010');
     assert.equal(moment([2100, 0, 1]).isLeapYear(), false, '2100');
     assert.equal(moment([2008, 0, 1]).isLeapYear(), true, '2008');

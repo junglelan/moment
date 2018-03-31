@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('weeks in year');
 
-test('isoWeeksInYear', function (assert) {
+QUnit.test('isoWeeksInYear', function (assert) {
     assert.equal(moment([2004]).isoWeeksInYear(), 53, '2004 has 53 iso weeks');
     assert.equal(moment([2005]).isoWeeksInYear(), 52, '2005 has 53 iso weeks');
     assert.equal(moment([2006]).isoWeeksInYear(), 52, '2006 has 53 iso weeks');
@@ -18,7 +19,7 @@ test('isoWeeksInYear', function (assert) {
     assert.equal(moment([2015]).isoWeeksInYear(), 53, '2015 has 53 iso weeks');
 });
 
-test('weeksInYear doy/dow = 1/4', function (assert) {
+QUnit.test('weeksInYear doy/dow = 1/4', function (assert) {
     moment.locale('1/4', {week: {dow: 1, doy: 4}});
 
     assert.equal(moment([2004]).weeksInYear(), 53, '2004 has 53 weeks');
@@ -35,7 +36,7 @@ test('weeksInYear doy/dow = 1/4', function (assert) {
     assert.equal(moment([2015]).weeksInYear(), 53, '2015 has 53 weeks');
 });
 
-test('weeksInYear doy/dow = 6/12', function (assert) {
+QUnit.test('weeksInYear doy/dow = 6/12', function (assert) {
     moment.locale('6/12', {week: {dow: 6, doy: 12}});
 
     assert.equal(moment([2004]).weeksInYear(), 53, '2004 has 53 weeks');
@@ -52,7 +53,7 @@ test('weeksInYear doy/dow = 6/12', function (assert) {
     assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
 });
 
-test('weeksInYear doy/dow = 1/7', function (assert) {
+QUnit.test('weeksInYear doy/dow = 1/7', function (assert) {
     moment.locale('1/7', {week: {dow: 1, doy: 7}});
 
     assert.equal(moment([2004]).weeksInYear(), 52, '2004 has 53 weeks');
@@ -69,7 +70,7 @@ test('weeksInYear doy/dow = 1/7', function (assert) {
     assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
 });
 
-test('weeksInYear doy/dow = 0/6', function (assert) {
+QUnit.test('weeksInYear doy/dow = 0/6', function (assert) {
     moment.locale('0/6', {week: {dow: 0, doy: 6}});
 
     assert.equal(moment([2004]).weeksInYear(), 52, '2004 has 53 weeks');

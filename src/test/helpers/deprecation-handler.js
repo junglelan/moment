@@ -5,7 +5,7 @@ export function setupDeprecationHandler(test, moment, scope) {
     test._observedDeprecations = null;
     test._oldSupress = moment.suppressDeprecationWarnings;
     moment.suppressDeprecationWarnings = true;
-    test.expectedDeprecations = function () {
+    QUnit.test.expectedDeprecations = function () {
         test._expectedDeprecations = arguments;
         test._observedDeprecations = [];
     };

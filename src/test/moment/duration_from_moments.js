@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('duration from moments');
 
-test('pure year diff', function (assert) {
+QUnit.test('pure year diff', function (assert) {
     var m1 = moment('2012-01-01T00:00:00.000Z'),
         m2 = moment('2013-01-01T00:00:00.000Z');
 
@@ -11,7 +12,7 @@ test('pure year diff', function (assert) {
     assert.equal(moment.duration({from: m2, to: m1}).as('years'), -1, 'negative year moment difference');
 });
 
-test('month and day diff', function (assert) {
+QUnit.test('month and day diff', function (assert) {
     var m1 = moment('2012-01-15T00:00:00.000Z'),
         m2 = moment('2012-02-17T00:00:00.000Z'),
         d = moment.duration({from: m1, to: m2});
@@ -20,7 +21,7 @@ test('month and day diff', function (assert) {
     assert.equal(d.get('months'), 1);
 });
 
-test('day diff, separate months', function (assert) {
+QUnit.test('day diff, separate months', function (assert) {
     var m1 = moment('2012-01-15T00:00:00.000Z'),
         m2 = moment('2012-02-13T00:00:00.000Z'),
         d = moment.duration({from: m1, to: m2});
@@ -28,7 +29,7 @@ test('day diff, separate months', function (assert) {
     assert.equal(d.as('days'), 29);
 });
 
-test('hour diff', function (assert) {
+QUnit.test('hour diff', function (assert) {
     var m1 = moment('2012-01-15T17:00:00.000Z'),
         m2 = moment('2012-01-16T03:00:00.000Z'),
         d = moment.duration({from: m1, to: m2});
@@ -36,7 +37,7 @@ test('hour diff', function (assert) {
     assert.equal(d.as('hours'), 10);
 });
 
-test('minute diff', function (assert) {
+QUnit.test('minute diff', function (assert) {
     var m1 = moment('2012-01-15T17:45:00.000Z'),
         m2 = moment('2012-01-16T03:15:00.000Z'),
         d = moment.duration({from: m1, to: m2});

@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('ar-sa');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = 'يناير:يناير_فبراير:فبراير_مارس:مارس_أبريل:أبريل_مايو:مايو_يونيو:يونيو_يوليو:يوليو_أغسطس:أغسطس_سبتمبر:سبتمبر_أكتوبر:أكتوبر_نوفمبر:نوفمبر_ديسمبر:ديسمبر'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
@@ -20,7 +21,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، فبراير ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
             ['ddd, hA',                            'أحد، ٣م'],
@@ -54,7 +55,7 @@ test('format', function (assert) {
     }
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '١', '1');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '٢', '2');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '٣', '3');
@@ -91,21 +92,21 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '٣١', '31');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var expected = 'يناير يناير_فبراير فبراير_مارس مارس_أبريل أبريل_مايو مايو_يونيو يونيو_يوليو يوليو_أغسطس أغسطس_سبتمبر سبتمبر_أكتوبر أكتوبر_نوفمبر نوفمبر_ديسمبر ديسمبر'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var expected = 'الأحد أحد ح_الإثنين إثنين ن_الثلاثاء ثلاثاء ث_الأربعاء أربعاء ر_الخميس خميس خ_الجمعة جمعة ج_السبت سبت س'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'ثوان', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'دقيقة',      '45 seconds = a minute');
@@ -137,21 +138,21 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '٥ سنوات',       '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'في ثوان',  'prefix');
     assert.equal(moment(0).from(30000), 'منذ ثوان', 'suffix');
 });
 
-test('now from now', function (assert) {
+QUnit.test('now from now', function (assert) {
     assert.equal(moment().fromNow(), 'منذ ثوان',  'now from now should display as in the past');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'في ثوان', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'في ٥ أيام', 'in 5 days');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   'اليوم على الساعة ١٢:٠٠',     'today at the same time');
@@ -162,7 +163,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس على الساعة ١٢:٠٠',      'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
@@ -174,7 +175,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
@@ -186,7 +187,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -200,14 +201,14 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('weeks year starting wednesday custom', function (assert) {
+QUnit.test('weeks year starting wednesday custom', function (assert) {
     assert.equal(moment('2003 1 6', 'gggg w d').format('YYYY-MM-DD'), '٢٠٠٣-٠١-٠٤', '2003 1 6 : gggg w d');
     assert.equal(moment('2003 1 0', 'gggg w e').format('YYYY-MM-DD'), '٢٠٠٢-١٢-٢٩', '2003 1 0 : gggg w e');
     assert.equal(moment('2003 1 6', 'gggg w d').format('gggg w d'), '٢٠٠٣ ١ ٦', '2003 1 6 : gggg w d');
     assert.equal(moment('2003 1 0', 'gggg w e').format('gggg w e'), '٢٠٠٣ ١ ٠', '2003 1 0 : gggg w e');
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+QUnit.test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2011, 11, 31]).format('w ww wo'), '٥٣ ٥٣ ٥٣', '2011 11 31');
     assert.equal(moment([2012,  0,  6]).format('w ww wo'), '١ ٠١ ١', '2012 0 6');
     assert.equal(moment([2012,  0,  7]).format('w ww wo'), '١ ٠١ ١', '2012 0 7');

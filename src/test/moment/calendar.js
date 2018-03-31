@@ -1,11 +1,12 @@
 // These tests are for locale independent features
 // locale dependent tests would be in locale test folder
-import { module, test } from '../qunit';
+
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('calendar');
 
-test('passing a function', function (assert) {
+QUnit.test('passing a function', function (assert) {
     var a  = moment().hours(13).minutes(0).seconds(0);
     assert.equal(moment(a).calendar(null, {
         'sameDay': function () {
@@ -14,7 +15,7 @@ test('passing a function', function (assert) {
     }), '1:00PM', 'should equate');
 });
 
-test('extending calendar options', function (assert) {
+QUnit.test('extending calendar options', function (assert) {
     var calendarFormat = moment.calendarFormat;
 
     moment.calendarFormat = function (myMoment, now) {

@@ -1,9 +1,9 @@
-import { module, test, expect } from '../qunit';
+import { module } from '../qunit';
 import moment from '../../moment';
 
 module('add and subtract');
 
-test('add short reverse args', function (assert) {
+QUnit.test('add short reverse args', function (assert) {
     var a = moment(), b, c, d;
     a.year(2011);
     a.month(9);
@@ -36,7 +36,7 @@ test('add short reverse args', function (assert) {
     assert.equal(d.year(), 2009, 'subtract quarter, feb 28th 2010 to nov 28th 2009');
 });
 
-test('add long reverse args', function (assert) {
+QUnit.test('add long reverse args', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -57,7 +57,7 @@ test('add long reverse args', function (assert) {
     assert.equal(a.add({quarters: 1}).month(), 1, 'Add quarter');
 });
 
-test('add long singular reverse args', function (assert) {
+QUnit.test('add long singular reverse args', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -78,10 +78,10 @@ test('add long singular reverse args', function (assert) {
     assert.equal(a.add({quarter: 1}).month(), 1, 'Add quarter');
 });
 
-test('add string long reverse args', function (assert) {
+QUnit.test('add string long reverse args', function (assert) {
     var a = moment(), b;
 
-    test.expectedDeprecations('moment().add(period, number)');
+    QUnit.test.expectedDeprecations('moment().add(period, number)');
 
     a.year(2011);
     a.month(9);
@@ -105,10 +105,10 @@ test('add string long reverse args', function (assert) {
     assert.equal(a.add('quarter', 1).month(), 1, 'Add quarter');
 });
 
-test('add string long singular reverse args', function (assert) {
+QUnit.test('add string long singular reverse args', function (assert) {
     var a = moment(), b;
 
-    test.expectedDeprecations('moment().add(period, number)');
+    QUnit.test.expectedDeprecations('moment().add(period, number)');
 
     a.year(2011);
     a.month(9);
@@ -132,9 +132,9 @@ test('add string long singular reverse args', function (assert) {
     assert.equal(a.add('quarters', 1).month(), 1, 'Add quarter');
 });
 
-test('add string short reverse args', function (assert) {
+QUnit.test('add string short reverse args', function (assert) {
     var a = moment();
-    test.expectedDeprecations('moment().add(period, number)');
+    QUnit.test.expectedDeprecations('moment().add(period, number)');
 
     a.year(2011);
     a.month(9);
@@ -155,7 +155,7 @@ test('add string short reverse args', function (assert) {
     assert.equal(a.add('Q', 1).month(), 1, 'Add quarter');
 });
 
-test('add string long', function (assert) {
+QUnit.test('add string long', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -176,7 +176,7 @@ test('add string long', function (assert) {
     assert.equal(a.add(1, 'quarter').month(), 1, 'Add quarter');
 });
 
-test('add string long singular', function (assert) {
+QUnit.test('add string long singular', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -197,7 +197,7 @@ test('add string long singular', function (assert) {
     assert.equal(a.add(1, 'quarters').month(), 1, 'Add quarter');
 });
 
-test('add string short', function (assert) {
+QUnit.test('add string short', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -218,9 +218,9 @@ test('add string short', function (assert) {
     assert.equal(a.add(1, 'Q').month(), 1, 'Add quarter');
 });
 
-test('add strings string short reversed', function (assert) {
+QUnit.test('add strings string short reversed', function (assert) {
     var a = moment();
-    test.expectedDeprecations('moment().add(period, number)');
+    QUnit.test.expectedDeprecations('moment().add(period, number)');
 
     a.year(2011);
     a.month(9);
@@ -241,9 +241,9 @@ test('add strings string short reversed', function (assert) {
     assert.equal(a.add('Q', '1').month(), 1, 'Add quarter');
 });
 
-test('subtract strings string short reversed', function (assert) {
+QUnit.test('subtract strings string short reversed', function (assert) {
     var a = moment();
-    test.expectedDeprecations('moment().subtract(period, number)');
+    QUnit.test.expectedDeprecations('moment().subtract(period, number)');
 
     a.year(2011);
     a.month(9);
@@ -264,7 +264,7 @@ test('subtract strings string short reversed', function (assert) {
     assert.equal(a.subtract('Q', '1').month(), 5, 'Subtract quarter');
 });
 
-test('add strings string short', function (assert) {
+QUnit.test('add strings string short', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -285,7 +285,7 @@ test('add strings string short', function (assert) {
     assert.equal(a.add('1', 'Q').month(), 1, 'Add quarter');
 });
 
-test('add no string with milliseconds default', function (assert) {
+QUnit.test('add no string with milliseconds default', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -298,7 +298,7 @@ test('add no string with milliseconds default', function (assert) {
     assert.equal(a.add(50).milliseconds(), 550, 'Add milliseconds');
 });
 
-test('subtract strings string short', function (assert) {
+QUnit.test('subtract strings string short', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -319,11 +319,11 @@ test('subtract strings string short', function (assert) {
     assert.equal(a.subtract('1', 'Q').month(), 5, 'Subtract quarter');
 });
 
-test('add across DST', function (assert) {
+QUnit.test('add across DST', function (assert) {
     // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
     // with 1 ahead.
     if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {
-        expect(0);
+        assert.expect(0);
         return;
     }
 
@@ -349,7 +349,7 @@ test('add across DST', function (assert) {
     assert.equal(e.hours(), 5, 'adding quarters over DST difference should result in the same hour');
 });
 
-test('add decimal values of days and months', function (assert) {
+QUnit.test('add decimal values of days and months', function (assert) {
     assert.equal(moment([2016,3,3]).add(1.5, 'days').date(), 5, 'adding 1.5 days is rounded to adding 2 day');
     assert.equal(moment([2016,3,3]).add(-1.5, 'days').date(), 1, 'adding -1.5 days is rounded to adding -2 day');
     assert.equal(moment([2016,3,1]).add(-1.5, 'days').date(), 30, 'adding -1.5 days on first of month wraps around');

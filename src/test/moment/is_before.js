@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('is before');
 
-test('is after without units', function (assert) {
+QUnit.test('is after without units', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), true, 'year is later');
     assert.equal(m.isBefore(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), false, 'year is earlier');
@@ -24,7 +25,7 @@ test('is after without units', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore second should not change moment');
 });
 
-test('is before year', function (assert) {
+QUnit.test('is before year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'year'), false, 'year match');
     assert.equal(m.isBefore(moment(new Date(2012, 5, 6, 7, 8, 9, 10)), 'years'), true, 'plural should work');
@@ -39,7 +40,7 @@ test('is before year', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore year should not change moment');
 });
 
-test('is before month', function (assert) {
+QUnit.test('is before month', function (assert) {
     var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 2, 6, 7, 8, 9, 10)), 'month'), false, 'month match');
     assert.equal(m.isBefore(moment(new Date(2012, 2, 6, 7, 8, 9, 10)), 'months'), true, 'plural should work');
@@ -56,7 +57,7 @@ test('is before month', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore month should not change moment');
 });
 
-test('is before day', function (assert) {
+QUnit.test('is before day', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 3, 2, 7, 8, 9, 10)), 'day'), false, 'day match');
     assert.equal(m.isBefore(moment(new Date(2012, 3, 2, 7, 8, 9, 10)), 'days'), true, 'plural should work');
@@ -75,7 +76,7 @@ test('is before day', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore day should not change moment');
 });
 
-test('is before hour', function (assert) {
+QUnit.test('is before hour', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 8, 9, 10)), 'hour'), false, 'hour match');
     assert.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 8, 9, 10)), 'hours'), true, 'plural should work');
@@ -95,7 +96,7 @@ test('is before hour', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore hour should not change moment');
 });
 
-test('is before minute', function (assert) {
+QUnit.test('is before minute', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 9, 10)), 'minute'), false, 'minute match');
     assert.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 4, 9, 10)), 'minutes'), true, 'plural should work');
@@ -117,7 +118,7 @@ test('is before minute', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore minute should not change moment');
 });
 
-test('is before second', function (assert) {
+QUnit.test('is before second', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'second'), false, 'second match');
     assert.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'seconds'), true, 'plural should work');
@@ -141,7 +142,7 @@ test('is before second', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore second should not change moment');
 });
 
-test('is before millisecond', function (assert) {
+QUnit.test('is before millisecond', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, 'millisecond match');
     assert.equal(m.isBefore(moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds'), false, 'plural should work');
@@ -163,7 +164,7 @@ test('is before millisecond', function (assert) {
     assert.equal(+m, +mCopy, 'isBefore millisecond should not change moment');
 });
 
-test('is before invalid', function (assert) {
+QUnit.test('is before invalid', function (assert) {
     var m = moment(), invalid = moment.invalid();
     assert.equal(m.isBefore(invalid), false, 'valid moment is not before invalid moment');
     assert.equal(invalid.isBefore(m), false, 'invalid moment is not before valid moment');

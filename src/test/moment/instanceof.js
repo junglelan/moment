@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('instanceof');
 
-test('instanceof', function (assert) {
+QUnit.test('instanceof', function (assert) {
     var mm = moment([2010, 0, 1]);
 
     var extend = function (a, b) {

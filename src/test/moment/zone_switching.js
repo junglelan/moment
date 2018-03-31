@@ -1,23 +1,23 @@
-import { module, test, expect } from '../qunit';
+import { module } from '../qunit';
 import moment from '../../moment';
 import { isNearSpringDST } from '../helpers/dst';
 
 module('zone switching');
 
-test('local to utc, keepLocalTime = true', function (assert) {
+QUnit.test('local to utc, keepLocalTime = true', function (assert) {
     var m = moment(),
         fmt = 'YYYY-DD-MM HH:mm:ss';
     assert.equal(m.clone().utc(true).format(fmt), m.format(fmt), 'local to utc failed to keep local time');
 });
 
-test('local to utc, keepLocalTime = false', function (assert) {
+QUnit.test('local to utc, keepLocalTime = false', function (assert) {
     var m = moment();
     assert.equal(m.clone().utc().valueOf(), m.valueOf(), 'local to utc failed to keep utc time (implicit)');
     assert.equal(m.clone().utc(false).valueOf(), m.valueOf(), 'local to utc failed to keep utc time (explicit)');
 });
 
-test('local to zone, keepLocalTime = true', function (assert) {
-    test.expectedDeprecations('moment().zone');
+QUnit.test('local to zone, keepLocalTime = true', function (assert) {
+    QUnit.test.expectedDeprecations('moment().zone');
     var m = moment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',
         z;
@@ -31,8 +31,8 @@ test('local to zone, keepLocalTime = true', function (assert) {
     }
 });
 
-test('local to zone, keepLocalTime = false', function (assert) {
-    test.expectedDeprecations('moment().zone');
+QUnit.test('local to zone, keepLocalTime = false', function (assert) {
+    QUnit.test.expectedDeprecations('moment().zone');
     var m = moment(),
         z;
 
@@ -47,10 +47,10 @@ test('local to zone, keepLocalTime = false', function (assert) {
     }
 });
 
-test('utc to local, keepLocalTime = true', function (assert) {
+QUnit.test('utc to local, keepLocalTime = true', function (assert) {
     // Don't test near the spring DST transition
     if (isNearSpringDST()) {
-        expect(0);
+        assert.expect(0);
         return;
     }
 
@@ -60,20 +60,20 @@ test('utc to local, keepLocalTime = true', function (assert) {
     assert.equal(um.clone().local(true).format(fmt), um.format(fmt), 'utc to local failed to keep local time');
 });
 
-test('utc to local, keepLocalTime = false', function (assert) {
+QUnit.test('utc to local, keepLocalTime = false', function (assert) {
     var um = moment.utc();
     assert.equal(um.clone().local().valueOf(), um.valueOf(), 'utc to local failed to keep utc time (implicit)');
     assert.equal(um.clone().local(false).valueOf(), um.valueOf(), 'utc to local failed to keep utc time (explicit)');
 });
 
-test('zone to local, keepLocalTime = true', function (assert) {
+QUnit.test('zone to local, keepLocalTime = true', function (assert) {
     // Don't test near the spring DST transition
     if (isNearSpringDST()) {
-        expect(0);
+        assert.expect(0);
         return;
     }
 
-    test.expectedDeprecations('moment().zone');
+    QUnit.test.expectedDeprecations('moment().zone');
 
     var m = moment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',
@@ -90,8 +90,8 @@ test('zone to local, keepLocalTime = true', function (assert) {
     }
 });
 
-test('zone to local, keepLocalTime = false', function (assert) {
-    test.expectedDeprecations('moment().zone');
+QUnit.test('zone to local, keepLocalTime = false', function (assert) {
+    QUnit.test.expectedDeprecations('moment().zone');
     var m = moment(),
         z;
 

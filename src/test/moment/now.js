@@ -1,9 +1,9 @@
-import { module, test, expect } from '../qunit';
+import { module } from '../qunit';
 import moment from '../../moment';
 
 module('now');
 
-test('now', function (assert) {
+QUnit.test('now', function (assert) {
     var startOfTest = new Date().valueOf(),
         momentNowTime = moment.now(),
         afterMomentCreationTime = new Date().valueOf();
@@ -12,7 +12,7 @@ test('now', function (assert) {
     assert.ok(momentNowTime <= afterMomentCreationTime, 'moment now() time should be now, not in the future');
 });
 
-test('now - Date mocked', function (assert) {
+QUnit.test('now - Date mocked', function (assert) {
     // We need to test mocking the global Date object, so disable 'Read Only' jshint check
     /* jshint -W020 */
     var RealDate = Date,
@@ -37,7 +37,7 @@ test('now - Date mocked', function (assert) {
     }
 });
 
-test('now - custom value', function (assert) {
+QUnit.test('now - custom value', function (assert) {
     var customTimeStr = '2015-01-01T01:30:00.000Z',
         customTime = moment(customTimeStr, moment.ISO_8601).valueOf(),
         oldFn = moment.now;
@@ -54,7 +54,7 @@ test('now - custom value', function (assert) {
     }
 });
 
-test('empty object, empty array', function (assert) {
+QUnit.test('empty object, empty array', function (assert) {
     function assertIsNow(gen, msg) {
         var before = +(new Date()),
             mid = gen(),

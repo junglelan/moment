@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('relative time');
 
-test('default thresholds fromNow', function (assert) {
+QUnit.test('default thresholds fromNow', function (assert) {
     var a = moment();
 
     // Seconds to minutes threshold
@@ -41,7 +42,7 @@ test('default thresholds fromNow', function (assert) {
     assert.equal(a.fromNow(), 'a year ago', 'Above default days to years threshold');
 });
 
-test('default thresholds toNow', function (assert) {
+QUnit.test('default thresholds toNow', function (assert) {
     var a = moment();
 
     // Seconds to minutes threshold
@@ -79,7 +80,7 @@ test('default thresholds toNow', function (assert) {
     assert.equal(a.toNow(), 'in a year', 'Above default days to years threshold');
 });
 
-test('custom thresholds', function (assert) {
+QUnit.test('custom thresholds', function (assert) {
     var a;
 
     // Seconds to minute threshold, under 30
@@ -150,7 +151,7 @@ test('custom thresholds', function (assert) {
     moment.relativeTimeThreshold('M', 11);
 });
 
-test('custom rounding', function (assert) {
+QUnit.test('custom rounding', function (assert) {
     var roundingDefault = moment.relativeTimeRounding();
 
     // Round relative time evaluation down
@@ -205,14 +206,14 @@ test('custom rounding', function (assert) {
     moment.relativeTimeRounding(roundingDefault);
 });
 
-test('retrieve rounding settings', function (assert) {
+QUnit.test('retrieve rounding settings', function (assert) {
     moment.relativeTimeRounding(Math.round);
     var roundingFunction = moment.relativeTimeRounding();
 
     assert.equal(roundingFunction, Math.round, 'Can retrieve rounding setting');
 });
 
-test('retrieve threshold settings', function (assert) {
+QUnit.test('retrieve threshold settings', function (assert) {
     moment.relativeTimeThreshold('m', 45);
     var minuteThreshold = moment.relativeTimeThreshold('m');
 

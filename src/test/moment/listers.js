@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('listers');
 
-test('default', function (assert) {
+QUnit.test('default', function (assert) {
     assert.deepEqual(moment.months(), ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
     assert.deepEqual(moment.monthsShort(), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
     assert.deepEqual(moment.weekdays(), ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
@@ -11,7 +12,7 @@ test('default', function (assert) {
     assert.deepEqual(moment.weekdaysMin(), ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
 });
 
-test('index', function (assert) {
+QUnit.test('index', function (assert) {
     assert.equal(moment.months(0), 'January');
     assert.equal(moment.months(2), 'March');
     assert.equal(moment.monthsShort(0), 'Jan');
@@ -24,7 +25,7 @@ test('index', function (assert) {
     assert.equal(moment.weekdaysMin(2), 'Tu');
 });
 
-test('localized', function (assert) {
+QUnit.test('localized', function (assert) {
     var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
@@ -78,7 +79,7 @@ test('localized', function (assert) {
     assert.equal(moment.weekdaysMin(false, 2), '3');
 });
 
-test('with functions', function (assert) {
+QUnit.test('with functions', function (assert) {
     var monthsShort = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
         monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split('_');
 
@@ -99,7 +100,7 @@ test('with functions', function (assert) {
     assert.deepEqual(moment.monthsShort(2), 'three');
 });
 
-test('with locale data', function (assert) {
+QUnit.test('with locale data', function (assert) {
     var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),

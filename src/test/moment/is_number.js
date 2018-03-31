@@ -1,8 +1,9 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import isNumber from '../../lib/utils/is-number.js';
 
 
-test('isNumber recognizes numbers', function (assert) {
+QUnit.test('isNumber recognizes numbers', function (assert) {
     assert.ok(isNumber(1), 'simple integer');
     assert.ok(isNumber(0), 'simple number');
     assert.ok(isNumber(-0), 'silly number');
@@ -17,7 +18,7 @@ test('isNumber recognizes numbers', function (assert) {
     assert.ok(isNumber(new Number(1)), 'number primitive wrapped in an object'); // jshint ignore:line
 });
 
-test('isNumber rejects non-numbers', function (assert) {
+QUnit.test('isNumber rejects non-numbers', function (assert) {
     assert.ok(!isNumber(), 'nothing');
     assert.ok(!isNumber(undefined), 'undefined');
     assert.ok(!isNumber(null), 'null');

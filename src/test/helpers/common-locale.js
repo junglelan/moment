@@ -1,11 +1,10 @@
-import { test, expect } from '../qunit';
 import each from './each';
 import objectKeys from './object-keys';
 import moment from '../../moment';
 import defaults from '../../lib/utils/defaults';
 
 export function defineCommonLocaleTests(locale, options) {
-    test('lenient day of month ordinal parsing', function (assert) {
+    QUnit.test('lenient day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
             ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
@@ -19,7 +18,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('lenient day of month ordinal parsing of number', function (assert) {
+    QUnit.test('lenient day of month ordinal parsing of number', function (assert) {
         var i, testMoment;
         for (i = 1; i <= 31; ++i) {
             testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
@@ -32,7 +31,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('strict day of month ordinal parsing', function (assert) {
+    QUnit.test('strict day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
             ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
@@ -41,7 +40,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('meridiem invariant', function (assert) {
+    QUnit.test('meridiem invariant', function (assert) {
         var h, m, t1, t2;
         for (h = 0; h < 24; ++h) {
             for (m = 0; m < 60; m += 15) {
@@ -53,7 +52,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('date format correctness', function (assert) {
+    QUnit.test('date format correctness', function (assert) {
         var data, tokens;
         data = moment.localeData()._longDateFormat;
         tokens = objectKeys(data);
@@ -69,12 +68,12 @@ export function defineCommonLocaleTests(locale, options) {
         });
     });
 
-    test('month parsing correctness', function (assert) {
+    QUnit.test('month parsing correctness', function (assert) {
         var i, m;
 
         if (locale === 'tr') {
             // I can't fix it :(
-            expect(0);
+            assert.expect(0);
             return;
         }
         function tester(format) {
@@ -103,7 +102,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('weekday parsing correctness', function (assert) {
+    QUnit.test('weekday parsing correctness', function (assert) {
         var i, m;
 
         if (locale === 'tr' || locale === 'az' || locale === 'ro' || locale === 'mt') {
@@ -111,7 +110,7 @@ export function defineCommonLocaleTests(locale, options) {
             // upper then lower changes to i
             // ro: there is the letter ț which behaves weird under IE8
             // mt: letter Ħ
-            expect(0);
+            assert.expect(0);
             return;
         }
         function tester(format) {
@@ -138,7 +137,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
     });
 
-    test('valid localeData', function (assert) {
+    QUnit.test('valid localeData', function (assert) {
         assert.equal(moment().localeData().months().length, 12, 'months should return 12 months');
         assert.equal(moment().localeData().monthsShort().length, 12, 'monthsShort should return 12 months');
         assert.equal(moment().localeData().weekdays().length, 7, 'weekdays should return 7 days');

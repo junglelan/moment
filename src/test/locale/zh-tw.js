@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('zh-tw');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -20,7 +21,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:25:50'],
             ['ddd, Ah',                            '週日, 下午3'],
@@ -54,7 +55,7 @@ test('format', function (assert) {
     }
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split('_'), i;
 
     for (i = 0; i < expected.length; i++) {
@@ -62,7 +63,7 @@ test('format month', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var expected = '星期日 週日 日_星期一 週一 一_星期二 週二 二_星期三 週三 三_星期四 週四 四_星期五 週五 五_星期六 週六 六'.split('_'), i;
 
     for (i = 0; i < expected.length; i++) {
@@ -70,7 +71,7 @@ test('format week', function (assert) {
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '幾秒',   '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '1 分鐘', '45 seconds = a minute');
@@ -102,21 +103,21 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 年',   '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), '幾秒內',  'prefix');
     assert.equal(moment(0).from(30000), '幾秒前', 'suffix');
 });
 
-test('now from now', function (assert) {
+QUnit.test('now from now', function (assert) {
     assert.equal(moment().fromNow(), '幾秒前',  'now from now should display as in the past');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), '幾秒內', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), '5 天內', 'in 5 days');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   '今天 12:00', 'today at the same time');
@@ -127,7 +128,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天 12:00', 'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
@@ -139,7 +140,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
@@ -151,7 +152,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -165,7 +166,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('meridiem', function (assert) {
+QUnit.test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23,  0, 0]).format('a'), '凌晨', 'before dawn');
     assert.equal(moment([2011, 2, 23,  6, 0]).format('a'), '早上', 'morning');
     assert.equal(moment([2011, 2, 23,  9, 0]).format('a'), '上午', 'before noon');
@@ -181,7 +182,7 @@ test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23, 18, 0]).format('A'), '晚上', 'night');
 });
 
-test('weeks year starting sunday format', function (assert) {
+QUnit.test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1週', 'Jan  1 2012 應該是第 1週');
     assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1週', 'Jan  7 2012 應該是第 1週');
     assert.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2週', 'Jan  8 2012 應該是第 2週');

@@ -1,4 +1,5 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 import each from '../helpers/each';
 import indexOf from '../../lib/utils/index-of';
@@ -41,7 +42,7 @@ module('locale', {
     }
 });
 
-test('library getters and setters', function (assert) {
+QUnit.test('library getters and setters', function (assert) {
     var r = moment.locale('en');
 
     assert.equal(r, 'en', 'locale should return en by default');
@@ -66,18 +67,18 @@ test('library getters and setters', function (assert) {
     assert.equal(moment.locale(), 'en-gb', 'Normalize locale key underscore');
 });
 
-test('library setter array of locales', function (assert) {
+QUnit.test('library setter array of locales', function (assert) {
     assert.equal(moment.locale(['non-existent', 'fr', 'also-non-existent']), 'fr', 'passing an array uses the first valid locale');
     assert.equal(moment.locale(['es', 'fr', 'also-non-existent']), 'es', 'passing an array uses the first valid locale');
 });
 
-test('library setter locale substrings', function (assert) {
+QUnit.test('library setter locale substrings', function (assert) {
     assert.equal(moment.locale('fr-crap'), 'fr', 'use substrings');
     assert.equal(moment.locale('fr-does-not-exist'), 'fr', 'uses deep substrings');
     assert.equal(moment.locale('fr-CA-does-not-exist'), 'fr-ca', 'uses deepest substring');
 });
 
-test('library getter locale array and substrings', function (assert) {
+QUnit.test('library getter locale array and substrings', function (assert) {
     assert.equal(moment.locale(['en-CH', 'fr']), 'en', 'prefer root locale to shallower ones');
     assert.equal(moment.locale(['en-gb-leeds', 'en-CA']), 'en-gb', 'prefer root locale to shallower ones');
     assert.equal(moment.locale(['en-fake', 'en-CA']), 'en-ca', 'prefer alternatives with shared roots');
@@ -88,7 +89,7 @@ test('library getter locale array and substrings', function (assert) {
     assert.equal(moment.locale(['en', 'en-CA']), 'en', 'prefer earlier if it works');
 });
 
-test('library ensure inheritance', function (assert) {
+QUnit.test('library ensure inheritance', function (assert) {
     moment.locale('made-up', {
         // I put them out of order
         months : 'February_March_April_May_June_July_August_September_October_November_December_January'.split('_')
@@ -99,7 +100,7 @@ test('library ensure inheritance', function (assert) {
     assert.equal(moment([2012, 5, 6]).format('MMM'), 'Jun', 'But not all of them');
 });
 
-test('library ensure inheritance LT L LL LLL LLLL', function (assert) {
+QUnit.test('library ensure inheritance LT L LL LLL LLLL', function (assert) {
     var locale = 'test-inherit-lt';
 
     moment.defineLocale(locale, {
@@ -129,7 +130,7 @@ test('library ensure inheritance LT L LL LLL LLLL', function (assert) {
     assert.equal(moment().add(-4, 'days').locale(locale).calendar(), 'lastWeek -LLLL-', 'Should use instance locale in LLLL formatting');
 });
 
-test('library localeData', function (assert) {
+QUnit.test('library localeData', function (assert) {
     moment.locale('en');
 
     var jan = moment([2000, 0]);
@@ -139,8 +140,8 @@ test('library localeData', function (assert) {
     assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 });
 
-test('library deprecations', function (assert) {
-    test.expectedDeprecations('moment.lang');
+QUnit.test('library deprecations', function (assert) {
+    QUnit.test.expectedDeprecations('moment.lang');
     moment.lang('dude', {months: ['Movember']});
     assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
     assert.equal(moment.lang(), moment.locale());
@@ -148,7 +149,7 @@ test('library deprecations', function (assert) {
     moment.defineLocale('dude', null);
 });
 
-test('defineLocale', function (assert) {
+QUnit.test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', {months: ['Movember']});
     assert.equal(moment().locale(), 'dude', 'defineLocale also sets it');
@@ -156,21 +157,21 @@ test('defineLocale', function (assert) {
     moment.defineLocale('dude', null);
 });
 
-test('locales', function (assert) {
+QUnit.test('locales', function (assert) {
     moment.defineLocale('dude', {months: ['Movember']});
     assert.equal(true, !!~indexOf.call(moment.locales(), 'dude'), 'locales returns an array of defined locales');
     assert.equal(true, !!~indexOf.call(moment.locales(), 'en'), 'locales should always include english');
     moment.defineLocale('dude', null);
 });
 
-test('library convenience', function (assert) {
+QUnit.test('library convenience', function (assert) {
     moment.locale('something', {week: {dow: 3}});
     moment.locale('something');
     assert.equal(moment.locale(), 'something', 'locale can be used to create the locale too');
     moment.defineLocale('something', null);
 });
 
-test('firstDayOfWeek firstDayOfYear locale getters', function (assert) {
+QUnit.test('firstDayOfWeek firstDayOfYear locale getters', function (assert) {
     moment.locale('something', {week: {dow: 3, doy: 4}});
     moment.locale('something');
     assert.equal(moment.localeData().firstDayOfWeek(), 3, 'firstDayOfWeek');
@@ -178,7 +179,7 @@ test('firstDayOfWeek firstDayOfYear locale getters', function (assert) {
     moment.defineLocale('something', null);
 });
 
-test('instance locale method', function (assert) {
+QUnit.test('instance locale method', function (assert) {
     moment.locale('en');
 
     assert.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Normally default to global');
@@ -186,14 +187,14 @@ test('instance locale method', function (assert) {
     assert.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific locale does not affect other moments');
 });
 
-test('instance locale method with array', function (assert) {
+QUnit.test('instance locale method with array', function (assert) {
     var m = moment().locale(['non-existent', 'fr', 'also-non-existent']);
     assert.equal(m.locale(), 'fr', 'passing an array uses the first valid locale');
     m = moment().locale(['es', 'fr', 'also-non-existent']);
     assert.equal(m.locale(), 'es', 'passing an array uses the first valid locale');
 });
 
-test('instance getter locale substrings', function (assert) {
+QUnit.test('instance getter locale substrings', function (assert) {
     var m = moment();
 
     m.locale('fr-crap');
@@ -203,7 +204,7 @@ test('instance getter locale substrings', function (assert) {
     assert.equal(m.locale(), 'fr', 'uses deep substrings');
 });
 
-test('instance locale persists with manipulation', function (assert) {
+QUnit.test('instance locale persists with manipulation', function (assert) {
     moment.locale('en');
 
     assert.equal(moment([2012, 5, 6]).locale('es').add({days: 1}).format('MMMM'), 'junio', 'With addition');
@@ -211,7 +212,7 @@ test('instance locale persists with manipulation', function (assert) {
     assert.equal(moment([2012, 5, 6]).locale('es').endOf('day').format('MMMM'), 'junio', 'With endOf');
 });
 
-test('instance locale persists with cloning', function (assert) {
+QUnit.test('instance locale persists with cloning', function (assert) {
     moment.locale('en');
 
     var a = moment([2012, 5, 6]).locale('es'),
@@ -222,7 +223,7 @@ test('instance locale persists with cloning', function (assert) {
     assert.equal(b.format('MMMM'), 'junio', 'using moment()');
 });
 
-test('duration locale method', function (assert) {
+QUnit.test('duration locale method', function (assert) {
     moment.locale('en');
 
     assert.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Normally default to global');
@@ -230,7 +231,7 @@ test('duration locale method', function (assert) {
     assert.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Using an instance specific locale does not affect other durations');
 });
 
-test('duration locale persists with cloning', function (assert) {
+QUnit.test('duration locale persists with cloning', function (assert) {
     moment.locale('en');
 
     var a = moment.duration({seconds:  44}).locale('es'),
@@ -239,23 +240,23 @@ test('duration locale persists with cloning', function (assert) {
     assert.equal(b.humanize(), 'unos segundos', 'using moment.duration()');
 });
 
-test('changing the global locale doesn\'t affect existing duration instances', function (assert) {
+QUnit.test('changing the global locale doesn\'t affect existing duration instances', function (assert) {
     var mom = moment.duration();
     moment.locale('fr');
     assert.equal('en', mom.locale());
 });
 
-test('duration deprecations', function (assert) {
-    test.expectedDeprecations('moment().lang()');
+QUnit.test('duration deprecations', function (assert) {
+    QUnit.test.expectedDeprecations('moment().lang()');
     assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
 });
 
-test('from and fromNow with invalid date', function (assert) {
+QUnit.test('from and fromNow with invalid date', function (assert) {
     assert.equal(moment(NaN).from(), 'Invalid date', 'moment.from with invalid moment');
     assert.equal(moment(NaN).fromNow(), 'Invalid date', 'moment.fromNow with invalid moment');
 });
 
-test('from relative time future', function (assert) {
+QUnit.test('from relative time future', function (assert) {
     var start = moment([2007, 1, 28]);
 
     assert.equal(start.from(moment([2007, 1, 28]).subtract({s: 44})),  'in a few seconds', '44 seconds = a few seconds');
@@ -290,7 +291,7 @@ test('from relative time future', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).subtract({y: 5})),   'in 5 years',       '5 years = 5 years');
 });
 
-test('from relative time past', function (assert) {
+QUnit.test('from relative time past', function (assert) {
     var start = moment([2007, 1, 28]);
 
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44})),  'a few seconds ago', '44 seconds = a few seconds');
@@ -325,7 +326,7 @@ test('from relative time past', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5})),   '5 years ago',       '5 years = 5 years');
 });
 
-test('instance locale used with from', function (assert) {
+QUnit.test('instance locale used with from', function (assert) {
     moment.locale('en');
 
     var a = moment([2012, 5, 6]).locale('es'),
@@ -335,13 +336,13 @@ test('instance locale used with from', function (assert) {
     assert.equal(b.from(a), 'in a day', 'do not preserve locale of second moment');
 });
 
-test('instance localeData', function (assert) {
+QUnit.test('instance localeData', function (assert) {
     moment.defineLocale('dude', {week: {dow: 3}});
     assert.equal(moment().locale('dude').localeData()._week.dow, 3);
     moment.defineLocale('dude', null);
 });
 
-test('month name callback function', function (assert) {
+QUnit.test('month name callback function', function (assert) {
     function fakeReplace(m, format) {
         if (/test/.test(format)) {
             return 'test';
@@ -365,8 +366,8 @@ test('month name callback function', function (assert) {
     assert.equal(moment([2011, 0, 2]).format('dd ddd dddd MMM MMMM'), 'default default default default default', 'format month name function should be able to access the moment object');
 });
 
-test('changing parts of a locale config', function (assert) {
-    test.expectedDeprecations('defineLocaleOverride');
+QUnit.test('changing parts of a locale config', function (assert) {
+    QUnit.test.expectedDeprecations('defineLocaleOverride');
 
     moment.locale('partial-lang', {
         months : 'a b c d e f g h i j k l'.split(' ')
@@ -383,7 +384,7 @@ test('changing parts of a locale config', function (assert) {
     moment.defineLocale('partial-lang', null);
 });
 
-test('start/endOf week feature for first-day-is-monday locales', function (assert) {
+QUnit.test('start/endOf week feature for first-day-is-monday locales', function (assert) {
     moment.locale('monday-lang', {
         week : {
             dow : 1 // Monday is the first day of the week
@@ -396,7 +397,7 @@ test('start/endOf week feature for first-day-is-monday locales', function (asser
     moment.defineLocale('monday-lang', null);
 });
 
-test('meridiem parsing', function (assert) {
+QUnit.test('meridiem parsing', function (assert) {
     moment.locale('meridiem-parsing', {
         meridiemParse : /[bd]/i,
         isPM : function (input) {
@@ -410,7 +411,7 @@ test('meridiem parsing', function (assert) {
     moment.defineLocale('meridiem-parsing', null);
 });
 
-test('invalid date formatting', function (assert) {
+QUnit.test('invalid date formatting', function (assert) {
     moment.locale('has-invalid', {
         invalidDate: 'KHAAAAAAAAAAAN!'
     });
@@ -420,35 +421,35 @@ test('invalid date formatting', function (assert) {
     moment.defineLocale('has-invalid', null);
 });
 
-test('return locale name', function (assert) {
+QUnit.test('return locale name', function (assert) {
     var registered = moment.locale('return-this', {});
 
     assert.equal(registered, 'return-this', 'returns the locale configured');
     moment.locale('return-this', null);
 });
 
-test('changing the global locale doesn\'t affect existing instances', function (assert) {
+QUnit.test('changing the global locale doesn\'t affect existing instances', function (assert) {
     var mom = moment();
     moment.locale('fr');
     assert.equal('en', mom.locale());
 });
 
-test('setting a language on instance returns the original moment for chaining', function (assert) {
-    test.expectedDeprecations('moment().lang()');
+QUnit.test('setting a language on instance returns the original moment for chaining', function (assert) {
+    QUnit.test.expectedDeprecations('moment().lang()');
     var mom = moment();
 
     assert.equal(mom.lang('fr'), mom, 'setting the language (lang) returns the original moment for chaining');
     assert.equal(mom.locale('it'), mom, 'setting the language (locale) returns the original moment for chaining');
 });
 
-test('lang(key) changes the language of the instance', function (assert) {
-    test.expectedDeprecations('moment().lang()');
+QUnit.test('lang(key) changes the language of the instance', function (assert) {
+    QUnit.test.expectedDeprecations('moment().lang()');
     var m = moment().month(0);
     m.lang('fr');
     assert.equal(m.locale(), 'fr', 'm.lang(key) changes instance locale');
 });
 
-test('moment#locale(false) resets to global locale', function (assert) {
+QUnit.test('moment#locale(false) resets to global locale', function (assert) {
     var m = moment();
 
     moment.locale('fr');
@@ -460,13 +461,13 @@ test('moment#locale(false) resets to global locale', function (assert) {
     assert.equal(m.locale(), 'fr', 'instance locale reset to global locale');
 });
 
-test('moment().locale with missing key doesn\'t change locale', function (assert) {
+QUnit.test('moment().locale with missing key doesn\'t change locale', function (assert) {
     assert.equal(moment().locale('boo').localeData(), moment.localeData(),
             'preserve global locale in case of bad locale id');
 });
 
-test('moment().lang with missing key doesn\'t change locale', function (assert) {
-    test.expectedDeprecations('moment().lang()');
+QUnit.test('moment().lang with missing key doesn\'t change locale', function (assert) {
+    QUnit.test.expectedDeprecations('moment().lang()');
     assert.equal(moment().lang('boo').localeData(), moment.localeData(),
             'preserve global locale in case of bad locale id');
 });

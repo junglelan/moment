@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('bm');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var i,
         tests = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split('_');
 
@@ -23,7 +24,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a', 'Kari, Fewuruyekalo 14 2010, 3:25:50 pm'],
             ['ddd, hA',                       'Kar, 3PM'],
@@ -58,7 +59,7 @@ test('format', function (assert) {
     }
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var i,
         expected = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split('_');
 
@@ -67,7 +68,7 @@ test('format month', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var i,
         expected = 'Kari Kar Ka_Ntɛnɛn Ntɛ Nt_Tarata Tar Ta_Araba Ara Ar_Alamisa Ala Al_Juma Jum Ju_Sibiri Sib Si'.split('_');
 
@@ -76,7 +77,7 @@ test('format week', function (assert) {
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
 
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'sanga dama dama', '44 seconds = a few seconds');
@@ -109,17 +110,17 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   'san 5',           '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'sanga dama dama kɔnɔ',    'prefix');
     assert.equal(moment(0).from(30000), 'a bɛ sanga dama dama bɔ', 'suffix');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'sanga dama dama kɔnɔ', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(),  'tile 5 kɔnɔ',          'in 5 days');
 });
 
-test('same day', function (assert) {
+QUnit.test('same day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                  'Bi lɛrɛ 12:00',   'Today at the same time');
@@ -130,7 +131,7 @@ test('same day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(), 'Kunu lɛrɛ 12:00', 'Yesterday at the same time');
 });
 
-test('same next week', function (assert) {
+QUnit.test('same next week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -143,7 +144,7 @@ test('same next week', function (assert) {
     }
 });
 
-test('same last week', function (assert) {
+QUnit.test('same last week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -156,7 +157,7 @@ test('same last week', function (assert) {
     }
 });
 
-test('same all else', function (assert) {
+QUnit.test('same all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -170,7 +171,7 @@ test('same all else', function (assert) {
     assert.equal(weeksFromNow.calendar(), weeksFromNow.format('L'), 'in 2 weeks');
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+QUnit.test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012, 0,  2]).format('w ww wo'), '1 01 1',  'Jan  2 2012 should be week 1');
     assert.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1',  'Jan  8 2012 should be week 1');

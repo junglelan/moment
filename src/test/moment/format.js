@@ -1,10 +1,11 @@
-import { module, test } from '../qunit';
+
 import each from '../helpers/each';
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('format');
 
-test('format using constants', function (assert) {
+QUnit.test('format using constants', function (assert) {
     var m = moment('2017-09-01T23:40:40.678');
     assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL), '2017-09-01T23:40', 'datetime local format constant');
     assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS), '2017-09-01T23:40:40', 'datetime local format constant');
@@ -17,12 +18,12 @@ test('format using constants', function (assert) {
     assert.equal(m.format(moment.HTML5_FMT.MONTH), '2017-09', 'month format constant');
 });
 
-test('format YY', function (assert) {
+QUnit.test('format YY', function (assert) {
     var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
     assert.equal(b.format('YY'), '09', 'YY ---> 09');
 });
 
-test('format escape brackets', function (assert) {
+QUnit.test('format escape brackets', function (assert) {
     moment.locale('en');
 
     var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
@@ -38,7 +39,7 @@ test('format escape brackets', function (assert) {
     assert.equal(b.format('YYYY[\n]DD[\n]'), '2009\n14\n', 'Newlines');
 });
 
-test('handle negative years', function (assert) {
+QUnit.test('handle negative years', function (assert) {
     moment.locale('en');
     assert.equal(moment.utc().year(-1).format('YY'), '-01', 'YY with negative year');
     assert.equal(moment.utc().year(-1).format('YYYY'), '-0001', 'YYYY with negative year');
@@ -52,7 +53,7 @@ test('handle negative years', function (assert) {
     assert.equal(moment.utc().year(-12345).format('YYYY'), '-12345', 'YYYY with negative year');
 });
 
-test('format milliseconds', function (assert) {
+QUnit.test('format milliseconds', function (assert) {
     var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
     assert.equal(b.format('S'), '1', 'Deciseconds');
     assert.equal(b.format('SS'), '12', 'Centiseconds');
@@ -63,18 +64,18 @@ test('format milliseconds', function (assert) {
     assert.equal(b.format('SSS'), '789', 'Milliseconds');
 });
 
-test('format timezone', function (assert) {
+QUnit.test('format timezone', function (assert) {
     var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
     assert.ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' should be something like \'+07:30\'');
     assert.ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' should be something like \'+0700\'');
 });
 
-test('format multiple with utc offset', function (assert) {
+QUnit.test('format multiple with utc offset', function (assert) {
     var b = moment('2012-10-08 -1200', ['YYYY-MM-DD HH:mm ZZ', 'YYYY-MM-DD ZZ', 'YYYY-MM-DD']);
     assert.equal(b.format('YYYY-MM'), '2012-10', 'Parsing multiple formats should not crash with different sized formats');
 });
 
-test('isDST', function (assert) {
+QUnit.test('isDST', function (assert) {
     var janOffset = new Date(2011, 0, 1).getTimezoneOffset(),
         julOffset = new Date(2011, 6, 1).getTimezoneOffset(),
         janIsDst = janOffset < julOffset,
@@ -97,7 +98,7 @@ test('isDST', function (assert) {
     }
 });
 
-test('unix timestamp', function (assert) {
+QUnit.test('unix timestamp', function (assert) {
     var m = moment('1234567890.123', 'X');
     assert.equal(m.format('X'), '1234567890', 'unix timestamp without milliseconds');
     assert.equal(m.format('X.S'), '1234567890.1', 'unix timestamp with deciseconds');
@@ -108,7 +109,7 @@ test('unix timestamp', function (assert) {
     assert.equal(m.format('X'), '1234567890', 'unix timestamp as integer');
 });
 
-test('unix offset milliseconds', function (assert) {
+QUnit.test('unix offset milliseconds', function (assert) {
     var m = moment('1234567890123', 'x');
     assert.equal(m.format('x'), '1234567890123', 'unix offset in milliseconds');
 
@@ -116,7 +117,7 @@ test('unix offset milliseconds', function (assert) {
     assert.equal(m.format('x'), '1234567890123', 'unix offset in milliseconds as integer');
 });
 
-test('utcOffset sanity checks', function (assert) {
+QUnit.test('utcOffset sanity checks', function (assert) {
     assert.equal(moment().utcOffset() % 15, 0,
             'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
 
@@ -124,17 +125,17 @@ test('utcOffset sanity checks', function (assert) {
         'utcOffset should return the opposite of getTimezoneOffset');
 });
 
-test('default format', function (assert) {
+QUnit.test('default format', function (assert) {
     var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
     assert.ok(isoRegex.exec(moment().format()), 'default format (' + moment().format() + ') should match ISO');
 });
 
-test('default UTC format', function (assert) {
+QUnit.test('default UTC format', function (assert) {
     var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\dZ/;
     assert.ok(isoRegex.exec(moment.utc().format()), 'default UTC format (' + moment.utc().format() + ') should match ISO');
 });
 
-test('toJSON', function (assert) {
+QUnit.test('toJSON', function (assert) {
     var supportsJson = typeof JSON !== 'undefined' && JSON.stringify && JSON.stringify.call,
         date = moment('2012-10-09T21:30:40.678+0100');
 
@@ -147,7 +148,7 @@ test('toJSON', function (assert) {
     }
 });
 
-test('toISOString', function (assert) {
+QUnit.test('toISOString', function (assert) {
     var date = moment.utc('2012-10-09T20:30:40.678');
 
     assert.equal(date.toISOString(), '2012-10-09T20:30:40.678Z', 'should output ISO8601 on moment.fn.toISOString');
@@ -167,7 +168,7 @@ test('toISOString', function (assert) {
     assert.equal(date.toISOString(), null, 'An invalid date to iso string is null');
 });
 
-test('toISOString without UTC conversion', function (assert) {
+QUnit.test('toISOString without UTC conversion', function (assert) {
     var date = moment.utc('2016-12-31T19:53:45.678').utcOffset('+05:30');
 
     assert.equal(date.toISOString(true), '2017-01-01T01:23:45.678+05:30', 'should output ISO8601 on moment.fn.toISOString');
@@ -188,7 +189,7 @@ test('toISOString without UTC conversion', function (assert) {
 });
 
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
-test('inspect', function (assert) {
+QUnit.test('inspect', function (assert) {
     function roundtrip(m) {
         /*jshint evil:true */
         return (new Function('moment', 'return ' + m.inspect()))(moment);
@@ -238,7 +239,7 @@ test('inspect', function (assert) {
     );
 });
 
-test('long years', function (assert) {
+QUnit.test('long years', function (assert) {
     assert.equal(moment.utc().year(2).format('YYYYYY'), '+000002', 'small year with YYYYYY');
     assert.equal(moment.utc().year(2012).format('YYYYYY'), '+002012', 'regular year with YYYYYY');
     assert.equal(moment.utc().year(20123).format('YYYYYY'), '+020123', 'big year with YYYYYY');
@@ -248,14 +249,14 @@ test('long years', function (assert) {
     assert.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
 });
 
-test('toISOString() when 0 year', function (assert) {
+QUnit.test('toISOString() when 0 year', function (assert) {
     // https://github.com/moment/moment/issues/3765
     var date = moment('0000-01-01T21:00:00.000Z');
     assert.equal(date.toISOString(), '0000-01-01T21:00:00.000Z');
     assert.equal(date.toDate().toISOString(), '0000-01-01T21:00:00.000Z');
 });
 
-test('iso week formats', function (assert) {
+QUnit.test('iso week formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
@@ -287,7 +288,7 @@ test('iso week formats', function (assert) {
     }
 });
 
-test('iso week year formats', function (assert) {
+QUnit.test('iso week year formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
@@ -320,7 +321,7 @@ test('iso week year formats', function (assert) {
     }
 });
 
-test('week year formats', function (assert) {
+QUnit.test('week year formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
@@ -356,7 +357,7 @@ test('week year formats', function (assert) {
     moment.defineLocale('dow:1,doy:4', null);
 });
 
-test('iso weekday formats', function (assert) {
+QUnit.test('iso weekday formats', function (assert) {
     assert.equal(moment([1985, 1,  4]).format('E'), '1', 'Feb  4 1985 is Monday    -- 1st day');
     assert.equal(moment([2029, 8, 18]).format('E'), '2', 'Sep 18 2029 is Tuesday   -- 2nd day');
     assert.equal(moment([2013, 3, 24]).format('E'), '3', 'Apr 24 2013 is Wednesday -- 3rd day');
@@ -366,7 +367,7 @@ test('iso weekday formats', function (assert) {
     assert.equal(moment([2000, 0,  2]).format('E'), '7', 'Jan  2 2000 is Sunday    -- 7th day');
 });
 
-test('weekday formats', function (assert) {
+QUnit.test('weekday formats', function (assert) {
     moment.defineLocale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
     assert.equal(moment([1985, 1,  6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
     assert.equal(moment([2029, 8, 20]).format('e'), '1', 'Sep 20 2029 is Thursday  -- 1st day');
@@ -378,12 +379,12 @@ test('weekday formats', function (assert) {
     moment.defineLocale('dow: 3,doy: 5', null);
 });
 
-test('toString is just human readable format', function (assert) {
+QUnit.test('toString is just human readable format', function (assert) {
     var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
     assert.equal(b.toString(), b.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
 });
 
-test('toJSON skips postformat', function (assert) {
+QUnit.test('toJSON skips postformat', function (assert) {
     moment.defineLocale('postformat', {
         postformat: function (s) {
             s.replace(/./g, 'X');
@@ -393,7 +394,7 @@ test('toJSON skips postformat', function (assert) {
     moment.defineLocale('postformat', null);
 });
 
-test('calendar day timezone', function (assert) {
+QUnit.test('calendar day timezone', function (assert) {
     moment.locale('en');
     var zones = [60, -60, 90, -90, 360, -360, 720, -720],
         b = moment().utc().startOf('day').subtract({m : 1}),
@@ -413,18 +414,18 @@ test('calendar day timezone', function (assert) {
     assert.equal(moment(c).local().calendar(d), 'Tomorrow at 11:59 PM', 'Tomorrow at 11:59 PM, not Yesterday, or the wrong time');
 });
 
-test('calendar with custom formats', function (assert) {
+QUnit.test('calendar with custom formats', function (assert) {
     assert.equal(moment().calendar(null, {sameDay: '[Today]'}), 'Today', 'Today');
     assert.equal(moment().add(1, 'days').calendar(null, {nextDay: '[Tomorrow]'}), 'Tomorrow', 'Tomorrow');
     assert.equal(moment([1985, 1, 4]).calendar(null, {sameElse: 'YYYY-MM-DD'}), '1985-02-04', 'Else');
 });
 
-test('invalid', function (assert) {
+QUnit.test('invalid', function (assert) {
     assert.equal(moment.invalid().format(), 'Invalid date');
     assert.equal(moment.invalid().format('YYYY-MM-DD'), 'Invalid date');
 });
 
-test('quarter formats', function (assert) {
+QUnit.test('quarter formats', function (assert) {
     assert.equal(moment([1985, 1,  4]).format('Q'), '1', 'Feb  4 1985 is Q1');
     assert.equal(moment([2029, 8, 18]).format('Q'), '3', 'Sep 18 2029 is Q3');
     assert.equal(moment([2013, 3, 24]).format('Q'), '2', 'Apr 24 2013 is Q2');
@@ -434,7 +435,7 @@ test('quarter formats', function (assert) {
     assert.equal(moment([2000, 0,  2]).format('[Q]Q-YYYY'), 'Q1-2000', 'Jan  2 2000 is Q1');
 });
 
-test('quarter ordinal formats', function (assert) {
+QUnit.test('quarter ordinal formats', function (assert) {
     assert.equal(moment([1985, 1, 4]).format('Qo'), '1st', 'Feb 4 1985 is 1st quarter');
     assert.equal(moment([2029, 8, 18]).format('Qo'), '3rd', 'Sep 18 2029 is 3rd quarter');
     assert.equal(moment([2013, 3, 24]).format('Qo'), '2nd', 'Apr 24 2013 is 2nd quarter');
@@ -483,7 +484,7 @@ test('quarter ordinal formats', function (assert) {
 //     });
 // });
 
-test('milliseconds', function (assert) {
+QUnit.test('milliseconds', function (assert) {
     var m = moment('123', 'SSS');
 
     assert.equal(m.format('S'), '1');
@@ -497,7 +498,7 @@ test('milliseconds', function (assert) {
     assert.equal(m.format('SSSSSSSSS'), '123000000');
 });
 
-test('hmm and hmmss', function (assert) {
+QUnit.test('hmm and hmmss', function (assert) {
     assert.equal(moment('12:34:56', 'HH:mm:ss').format('hmm'), '1234');
     assert.equal(moment('01:34:56', 'HH:mm:ss').format('hmm'), '134');
     assert.equal(moment('13:34:56', 'HH:mm:ss').format('hmm'), '134');
@@ -507,7 +508,7 @@ test('hmm and hmmss', function (assert) {
     assert.equal(moment('13:34:56', 'HH:mm:ss').format('hmmss'), '13456');
 });
 
-test('Hmm and Hmmss', function (assert) {
+QUnit.test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('12:34:56', 'HH:mm:ss').format('Hmm'), '1234');
     assert.equal(moment('01:34:56', 'HH:mm:ss').format('Hmm'), '134');
     assert.equal(moment('13:34:56', 'HH:mm:ss').format('Hmm'), '1334');
@@ -518,7 +519,7 @@ test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
 });
 
-test('k and kk', function (assert) {
+QUnit.test('k and kk', function (assert) {
     assert.equal(moment('01:23:45', 'HH:mm:ss').format('k'), '1');
     assert.equal(moment('12:34:56', 'HH:mm:ss').format('k'), '12');
     assert.equal(moment('01:23:45', 'HH:mm:ss').format('kk'), '01');
@@ -527,7 +528,7 @@ test('k and kk', function (assert) {
     assert.equal(moment('00:00:00', 'HH:mm:ss').format('kk'), '24');
 });
 
-test('Y token', function (assert) {
+QUnit.test('Y token', function (assert) {
     assert.equal(moment('2010-01-01', 'YYYY-MM-DD', true).format('Y'), '2010', 'format 2010 with Y');
     assert.equal(moment('-123-01-01', 'Y-MM-DD', true).format('Y'), '-123', 'format -123 with Y');
     assert.equal(moment('12345-01-01', 'Y-MM-DD', true).format('Y'), '+12345', 'format 12345 with Y');

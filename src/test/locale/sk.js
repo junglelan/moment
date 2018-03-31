@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('sk');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = 'január jan._február feb._marec mar._apríl apr._máj máj_jún jún._júl júl._august aug._september sep._október okt._november nov._december dec.'.split('_'), i;
     function equalTest(input, mmm, monthIndex) {
         assert.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
@@ -20,7 +21,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss',  'nedeľa, február 14. 2010, 3:25:50'],
             ['ddd, h',                       'ne, 3'],
@@ -53,7 +54,7 @@ test('format', function (assert) {
     }
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -90,21 +91,21 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31.', '31.');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var expected = 'január jan_február feb_marec mar_apríl apr_máj máj_jún jún_júl júl_august aug_september sep_október okt_november nov_december dec'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var expected = 'nedeľa ne ne_pondelok po po_utorok ut ut_streda st st_štvrtok št št_piatok pi pi_sobota so so'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'pár sekúnd',  '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minúta',        '45 seconds = a minute');
@@ -136,16 +137,16 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 rokov',         '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'za pár sekúnd',  'prefix');
     assert.equal(moment(0).from(30000), 'pred pár sekundami', 'suffix');
 });
 
-test('now from now', function (assert) {
+QUnit.test('now from now', function (assert) {
     assert.equal(moment().fromNow(), 'pred pár sekundami',  'now from now should display as in the past');
 });
 
-test('fromNow (future)', function (assert) {
+QUnit.test('fromNow (future)', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'za pár sekúnd', 'in a few seconds');
     assert.equal(moment().add({m: 1}).fromNow(), 'za minútu', 'in a minute');
     assert.equal(moment().add({m: 3}).fromNow(), 'za 3 minúty', 'in 3 minutes');
@@ -164,7 +165,7 @@ test('fromNow (future)', function (assert) {
     assert.equal(moment().add({y: 10}).fromNow(), 'za 10 rokov', 'in 10 years');
 });
 
-test('fromNow (past)', function (assert) {
+QUnit.test('fromNow (past)', function (assert) {
     assert.equal(moment().subtract({s: 30}).fromNow(), 'pred pár sekundami', 'a few seconds ago');
     assert.equal(moment().subtract({m: 1}).fromNow(), 'pred minútou', 'a minute ago');
     assert.equal(moment().subtract({m: 3}).fromNow(), 'pred 3 minútami', '3 minutes ago');
@@ -183,7 +184,7 @@ test('fromNow (past)', function (assert) {
     assert.equal(moment().subtract({y: 10}).fromNow(), 'pred 10 rokmi', '10 years ago');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   'dnes o 12:00',     'today at the same time');
@@ -194,7 +195,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'včera o 12:00',    'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m, nextDay;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
@@ -230,7 +231,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m, lastDay;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
@@ -266,7 +267,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -280,14 +281,14 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('humanize duration', function (assert) {
+QUnit.test('humanize duration', function (assert) {
     assert.equal(moment.duration(1, 'minutes').humanize(), 'minúta', 'a minute (future)');
     assert.equal(moment.duration(1, 'minutes').humanize(true), 'za minútu', 'in a minute');
     assert.equal(moment.duration(-1, 'minutes').humanize(), 'minúta', 'a minute (past)');
     assert.equal(moment.duration(-1, 'minutes').humanize(true), 'pred minútou', 'a minute ago');
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+QUnit.test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1.', 'Jan  2 2012 should be week 1');
     assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1.', 'Jan  8 2012 should be week 1');

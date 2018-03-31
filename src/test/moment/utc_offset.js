@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('utc offset');
 
-test('setter / getter blackbox', function (assert) {
+QUnit.test('setter / getter blackbox', function (assert) {
     var m = moment([2010]);
 
     assert.equal(m.clone().utcOffset(0).utcOffset(), 0, 'utcOffset 0');
@@ -33,7 +34,7 @@ test('setter / getter blackbox', function (assert) {
     assert.equal(m.clone().utcOffset('-0010').utcOffset(), -10, 'utcOffset +0010 is 10');
 });
 
-test('utcOffset shorthand hours -> minutes', function (assert) {
+QUnit.test('utcOffset shorthand hours -> minutes', function (assert) {
     var i;
     for (i = -15; i <= 15; ++i) {
         assert.equal(moment().utcOffset(i).utcOffset(), i * 60,
@@ -43,7 +44,7 @@ test('utcOffset shorthand hours -> minutes', function (assert) {
     assert.equal(moment().utcOffset(16).utcOffset(), 16, '16 -> 16');
 });
 
-test('isLocal, isUtc, isUtcOffset', function (assert) {
+QUnit.test('isLocal, isUtc, isUtcOffset', function (assert) {
     assert.ok(moment().isLocal(), 'moment() creates objects in local time');
     assert.ok(!moment.utc().isLocal(), 'moment.utc creates objects NOT in local time');
     assert.ok(moment.utc().local().isLocal(), 'moment.fn.local() converts to local time');
@@ -60,13 +61,13 @@ test('isLocal, isUtc, isUtcOffset', function (assert) {
     assert.ok(moment().utcOffset(0).isUtcOffset(), 'utcOffset(0) creates objects in utc-offset mode');
 });
 
-test('isUTC', function (assert) {
+QUnit.test('isUTC', function (assert) {
     assert.ok(moment.utc().isUTC(), 'moment.utc() creates objects in utc time');
     assert.ok(moment().utcOffset(0).isUTC(), 'utcOffset(0) is equivalent to utc mode');
     assert.ok(!moment().utcOffset(1).isUTC(), 'utcOffset(1) is NOT equivalent to utc mode');
 });
 
-test('change hours when changing the utc offset', function (assert) {
+QUnit.test('change hours when changing the utc offset', function (assert) {
     var m = moment.utc([2000, 0, 1, 6]);
     assert.equal(m.hour(), 6, 'UTC 6AM should be 6AM at +0000');
 
@@ -81,7 +82,7 @@ test('change hours when changing the utc offset', function (assert) {
     assert.equal(m.hour(), 7, 'UTC 6AM should be 7AM at +0100');
 });
 
-test('change minutes when changing the utc offset', function (assert) {
+QUnit.test('change minutes when changing the utc offset', function (assert) {
     var m = moment.utc([2000, 0, 1, 6, 31]);
 
     m.utcOffset(0);
@@ -97,7 +98,7 @@ test('change minutes when changing the utc offset', function (assert) {
     assert.equal(m.format('HH:mm'), '07:31', 'UTC 6:31AM should be 7:31AM at +1380');
 });
 
-test('distance from the unix epoch', function (assert) {
+QUnit.test('distance from the unix epoch', function (assert) {
     var zoneA = moment(),
         zoneB = moment(zoneA),
         zoneC = moment(zoneA),
@@ -119,7 +120,7 @@ test('distance from the unix epoch', function (assert) {
             'moment should equal moment.utcOffset(-1000)');
 });
 
-test('update offset after changing any values', function (assert) {
+QUnit.test('update offset after changing any values', function (assert) {
     var oldOffset = moment.updateOffset,
         m = moment.utc([2000, 6, 1]);
 
@@ -151,7 +152,7 @@ test('update offset after changing any values', function (assert) {
 });
 
 //////////////////
-test('getters and setters', function (assert) {
+QUnit.test('getters and setters', function (assert) {
     var a = moment([2011, 5, 20]);
 
     assert.equal(a.clone().utcOffset(-120).year(2012).year(), 2012, 'should get and set year correctly');
@@ -162,7 +163,7 @@ test('getters and setters', function (assert) {
     assert.equal(a.clone().utcOffset(-120).minute(1).minute(), 1, 'should get and set minute correctly');
 });
 
-test('getters', function (assert) {
+QUnit.test('getters', function (assert) {
     var a = moment.utc([2012, 0, 1, 0, 0, 0]);
 
     assert.equal(a.clone().utcOffset(-120).year(),  2011, 'should get year correctly');
@@ -184,7 +185,7 @@ test('getters', function (assert) {
     assert.equal(a.clone().utcOffset(90).minute(),  30, 'should get minute correctly');
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var zoneA = moment(),
         zoneB = moment(zoneA).utcOffset(-720),
         zoneC = moment(zoneA).utcOffset(-360),
@@ -196,7 +197,7 @@ test('from', function (assert) {
     assert.equal(zoneA.from(other), zoneD.from(other), 'moment#from should be the same in all zones');
 });
 
-test('diff', function (assert) {
+QUnit.test('diff', function (assert) {
     var zoneA = moment(),
         zoneB = moment(zoneA).utcOffset(-720),
         zoneC = moment(zoneA).utcOffset(-360),
@@ -216,7 +217,7 @@ test('diff', function (assert) {
     assert.equal(zoneA.diff(other, 'hour', true), zoneD.diff(other, 'hour', true), 'moment#diff should be the same in all zones');
 });
 
-test('unix offset and timestamp', function (assert) {
+QUnit.test('unix offset and timestamp', function (assert) {
     var zoneA = moment(),
         zoneB = moment(zoneA).utcOffset(-720),
         zoneC = moment(zoneA).utcOffset(-360),
@@ -231,7 +232,7 @@ test('unix offset and timestamp', function (assert) {
     assert.equal(+zoneA, +zoneD, 'moment#valueOf should be the same in all zones');
 });
 
-test('cloning', function (assert) {
+QUnit.test('cloning', function (assert) {
     assert.equal(moment().utcOffset(-120).clone().utcOffset(), -120,
             'explicit cloning should retain the offset');
     assert.equal(moment().utcOffset(120).clone().utcOffset(), 120,
@@ -242,7 +243,7 @@ test('cloning', function (assert) {
             'implicit cloning should retain the offset');
 });
 
-test('start of / end of', function (assert) {
+QUnit.test('start of / end of', function (assert) {
     var a = moment.utc([2010, 1, 2, 0, 0, 0]).utcOffset(-450);
 
     assert.equal(a.clone().startOf('day').hour(), 0,
@@ -260,20 +261,20 @@ test('start of / end of', function (assert) {
             'end of hour should work on moments with utc offset');
 });
 
-test('reset offset with moment#utc', function (assert) {
+QUnit.test('reset offset with moment#utc', function (assert) {
     var a = moment.utc([2012]).utcOffset(-480);
 
     assert.equal(a.clone().hour(),      16, 'different utc offset should have different hour');
     assert.equal(a.clone().utc().hour(), 0, 'calling moment#utc should reset the offset');
 });
 
-test('reset offset with moment#local', function (assert) {
+QUnit.test('reset offset with moment#local', function (assert) {
     var a = moment([2012]).utcOffset(-480);
 
     assert.equal(a.clone().local().hour(), 0, 'calling moment#local should reset the offset');
 });
 
-test('toDate', function (assert) {
+QUnit.test('toDate', function (assert) {
     var zoneA = new Date(),
         zoneB = moment(zoneA).utcOffset(-720).toDate(),
         zoneC = moment(zoneA).utcOffset(-360).toDate(),
@@ -284,7 +285,7 @@ test('toDate', function (assert) {
     assert.equal(+zoneA, +zoneD, 'moment#toDate should output a date with the right unix timestamp');
 });
 
-test('same / before / after', function (assert) {
+QUnit.test('same / before / after', function (assert) {
     var zoneA = moment().utc(),
         zoneB = moment(zoneA).utcOffset(-120),
         zoneC = moment(zoneA).utcOffset(120);
@@ -312,7 +313,7 @@ test('same / before / after', function (assert) {
     assert.ok(zoneA.isBefore(zoneC, 'hour'), 'isBefore:hour should work with two moments with different offsets');
 });
 
-test('add / subtract over dst', function (assert) {
+QUnit.test('add / subtract over dst', function (assert) {
     var oldOffset = moment.updateOffset,
         m = moment.utc([2000, 2, 31, 3]);
 
@@ -353,7 +354,7 @@ test('add / subtract over dst', function (assert) {
     moment.updateOffset = oldOffset;
 });
 
-test('isDST', function (assert) {
+QUnit.test('isDST', function (assert) {
     var oldOffset = moment.updateOffset;
 
     moment.updateOffset = function (mom, keepTime) {
@@ -383,7 +384,7 @@ test('isDST', function (assert) {
     moment.updateOffset = oldOffset;
 });
 
-test('zone names', function (assert) {
+QUnit.test('zone names', function (assert) {
     assert.equal(moment().zoneAbbr(),   '', 'Local zone abbr should be empty');
     assert.equal(moment().format('z'),  '', 'Local zone formatted abbr should be empty');
     assert.equal(moment().zoneName(),   '', 'Local zone name should be empty');
@@ -395,14 +396,14 @@ test('zone names', function (assert) {
     assert.equal(moment.utc().format('zz'), 'Coordinated Universal Time', 'UTC zone formatted abbr should be Coordinated Universal Time');
 });
 
-test('hours alignment with UTC', function (assert) {
+QUnit.test('hours alignment with UTC', function (assert) {
     assert.equal(moment().utcOffset(-120).hasAlignedHourOffset(), true);
     assert.equal(moment().utcOffset(180).hasAlignedHourOffset(), true);
     assert.equal(moment().utcOffset(-90).hasAlignedHourOffset(), false);
     assert.equal(moment().utcOffset(90).hasAlignedHourOffset(), false);
 });
 
-test('hours alignment with other zone', function (assert) {
+QUnit.test('hours alignment with other zone', function (assert) {
     var m = moment().utcOffset(-120);
 
     assert.equal(m.hasAlignedHourOffset(moment().utcOffset(-180)), true);
@@ -433,25 +434,25 @@ test('hours alignment with other zone', function (assert) {
     assert.equal(m.hasAlignedHourOffset(moment().utcOffset(85)), false);
 });
 
-test('parse zone', function (assert) {
+QUnit.test('parse zone', function (assert) {
     var m = moment('2013-01-01T00:00:00-13:00').parseZone();
     assert.equal(m.utcOffset(), -13 * 60);
     assert.equal(m.hours(), 0);
 });
 
-test('parse UTC zone', function (assert) {
+QUnit.test('parse UTC zone', function (assert) {
     var m = moment('2013-01-01T05:00:00+00:00').parseZone();
     assert.equal(m.utcOffset(), 0);
     assert.equal(m.hours(), 5);
 });
 
-test('parse zone static', function (assert) {
+QUnit.test('parse zone static', function (assert) {
     var m = moment.parseZone('2013-01-01T00:00:00-13:00');
     assert.equal(m.utcOffset(), -13 * 60);
     assert.equal(m.hours(), 0);
 });
 
-test('parse zone with more arguments', function (assert) {
+QUnit.test('parse zone with more arguments', function (assert) {
     var m;
     m = moment.parseZone('2013 01 01 05 -13:00', 'YYYY MM DD HH ZZ');
     assert.equal(m.format(), '2013-01-01T05:00:00-13:00', 'accept input and format');
@@ -461,19 +462,19 @@ test('parse zone with more arguments', function (assert) {
     assert.equal(m.format(), '2013-01-01T00:00:00-13:00', 'accept input and array of formats');
 });
 
-test('parse zone with a timezone from the format string', function (assert) {
+QUnit.test('parse zone with a timezone from the format string', function (assert) {
     var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY ZZ #####').parseZone();
 
     assert.equal(m.utcOffset(), -4 * 60);
 });
 
-test('parse zone without a timezone included in the format string', function (assert) {
+QUnit.test('parse zone without a timezone included in the format string', function (assert) {
     var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY').parseZone();
 
     assert.equal(m.utcOffset(), 11 * 60);
 });
 
-test('timezone format', function (assert) {
+QUnit.test('timezone format', function (assert) {
     assert.equal(moment().utcOffset(60).format('ZZ'), '+0100', '-60 -> +0100');
     assert.equal(moment().utcOffset(90).format('ZZ'), '+0130', '-90 -> +0130');
     assert.equal(moment().utcOffset(120).format('ZZ'), '+0200', '-120 -> +0200');

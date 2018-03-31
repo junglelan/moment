@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('locale inheritance');
 
-test('calendar', function (assert) {
+QUnit.test('calendar', function (assert) {
     moment.defineLocale('base-cal', {
         calendar : {
             sameDay: '[Today at] HH:mm',
@@ -35,7 +36,7 @@ test('calendar', function (assert) {
     assert.equal(anchor.clone().add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
 });
 
-test('missing', function (assert) {
+QUnit.test('missing', function (assert) {
     moment.defineLocale('base-cal-2', {
         calendar: {
             sameDay: '[Today at] HH:mm',
@@ -62,7 +63,7 @@ test('missing', function (assert) {
 
 // Test function vs obj both directions
 
-test('long date format', function (assert) {
+QUnit.test('long date format', function (assert) {
     moment.defineLocale('base-ldf', {
         longDateFormat : {
             LTS  : 'h:mm:ss A',
@@ -95,7 +96,7 @@ test('long date format', function (assert) {
     assert.equal(anchor.format('llll'), 'child Sun, Sep 6, 2015 12:34 PM', 'llll uses child');
 });
 
-test('ordinal', function (assert) {
+QUnit.test('ordinal', function (assert) {
     moment.defineLocale('base-ordinal-1', {
         ordinal : '%dx'
     });
@@ -131,7 +132,7 @@ test('ordinal', function (assert) {
     assert.equal(moment.utc('2015-02-03', moment.ISO_8601).format('Do'), '3y', 'ordinal uses child string (overwrite parent function)');
 });
 
-test('ordinal parse', function (assert) {
+QUnit.test('ordinal parse', function (assert) {
     moment.defineLocale('base-ordinal-parse-1', {
         dayOfMonthOrdinalParse : /\d{1,2}x/
     });
@@ -153,7 +154,7 @@ test('ordinal parse', function (assert) {
     assert.ok(moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child (default)');
 });
 
-test('months', function (assert) {
+QUnit.test('months', function (assert) {
     moment.defineLocale('base-months', {
         months : 'One_Two_Three_Four_Five_Six_Seven_Eight_Nine_Ten_Eleven_Twelve'.split('_')
     });
@@ -164,7 +165,7 @@ test('months', function (assert) {
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
 });
 
-test('define child locale before parent', function (assert) {
+QUnit.test('define child locale before parent', function (assert) {
     moment.defineLocale('months-x', null);
     moment.defineLocale('base-months-x', null);
 
@@ -184,7 +185,7 @@ test('define child locale before parent', function (assert) {
     assert.equal(moment().locale('months-x').month(0).format('MMMM'), 'First', 'loading child before parent locale works');
 });
 
-test('lazy load parentLocale', function (assert) {
+QUnit.test('lazy load parentLocale', function (assert) {
     moment.defineLocale('de_test', {
         parentLocale: 'de',
         monthsShort: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12']

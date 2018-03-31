@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('el');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var i,
         tests = 'Ιανουάριος Ιαν_Φεβρουάριος Φεβ_Μάρτιος Μαρ_Απρίλιος Απρ_Μάιος Μαϊ_Ιούνιος Ιουν_Ιούλιος Ιουλ_Αύγουστος Αυγ_Σεπτέμβριος Σεπ_Οκτώβριος Οκτ_Νοέμβριος Νοε_Δεκέμβριος Δεκ'.split('_');
 
@@ -23,7 +24,7 @@ test('parse', function (assert) {
     }
 });
 
-test('parse meridiem', function (assert) {
+QUnit.test('parse meridiem', function (assert) {
     var i,
         b = moment(),
         meridiemTests = [
@@ -60,7 +61,7 @@ test('parse meridiem', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Κυριακή, Φεβρουάριος 14η 2010, 3:25:50 μμ'],
             ['dddd, D MMMM YYYY, h:mm:ss a',       'Κυριακή, 14 Φεβρουαρίου 2010, 3:25:50 μμ'],
@@ -96,7 +97,7 @@ test('format', function (assert) {
     }
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1η', '1η');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2η', '2η');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '3η', '3η');
@@ -133,7 +134,7 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31η', '31η');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var i,
         expected = 'Ιανουάριος Ιαν_Φεβρουάριος Φεβ_Μάρτιος Μαρ_Απρίλιος Απρ_Μάιος Μαϊ_Ιούνιος Ιουν_Ιούλιος Ιουλ_Αύγουστος Αυγ_Σεπτέμβριος Σεπ_Οκτώβριος Οκτ_Νοέμβριος Νοε_Δεκέμβριος Δεκ'.split('_');
 
@@ -142,7 +143,7 @@ test('format month', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var i,
         expected = 'Κυριακή Κυρ Κυ_Δευτέρα Δευ Δε_Τρίτη Τρι Τρ_Τετάρτη Τετ Τε_Πέμπτη Πεμ Πε_Παρασκευή Παρ Πα_Σάββατο Σαβ Σα'.split('_');
 
@@ -151,7 +152,7 @@ test('format week', function (assert) {
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
 
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'λίγα δευτερόλεπτα',   '44 seconds = a few seconds');
@@ -184,21 +185,21 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 χρόνια',            '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'σε λίγα δευτερόλεπτα',  'prefix');
     assert.equal(moment(0).from(30000), 'λίγα δευτερόλεπτα πριν', 'suffix');
 });
 
-test('now from now', function (assert) {
+QUnit.test('now from now', function (assert) {
     assert.equal(moment().fromNow(), 'λίγα δευτερόλεπτα πριν',  'now from now should display as in the past');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'σε λίγα δευτερόλεπτα', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'σε 5 μέρες', 'in 5 days');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   'Σήμερα στις 12:00 ΜΜ',     'today at the same time');
@@ -209,7 +210,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'Χθες στις 12:00 ΜΜ',       'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
@@ -221,7 +222,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m, dayString;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
@@ -236,7 +237,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -250,7 +251,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('weeks year starting sunday format', function (assert) {
+QUnit.test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52η', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012, 0,  7]).format('w ww wo'),   '1 01 1η', 'Jan  7 2012 should be week 1');
     assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1η', 'Jan  8 2012 should be week 1');
@@ -258,7 +259,7 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2η', 'Jan 15 2012 should be week 2');
 });
 
-test('localeData months calls', function (assert) {
+QUnit.test('localeData months calls', function (assert) {
     var jan = moment('2012-01-01');
     assert.equal(moment.localeData().months(jan),           'Ιανουάριος', 'should return the nominative month name');
     assert.equal(moment.localeData().months(jan, 'D MMMM'), 'Ιανουαρίου', 'should return the genitive month name');

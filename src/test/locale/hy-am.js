@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('hy-am');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = 'հունվար հնվ_փետրվար փտր_մարտ մրտ_ապրիլ ապր_մայիս մյս_հունիս հնս_հուլիս հլս_օգոստոս օգս_սեպտեմբեր սպտ_հոկտեմբեր հկտ_նոյեմբեր նմբ_դեկտեմբեր դկտ'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -20,11 +21,11 @@ test('parse', function (assert) {
     }
 });
 
-test('parse exceptional case', function (assert) {
+QUnit.test('parse exceptional case', function (assert) {
     assert.equal(moment('11 մայիսի 1989', ['DD MMMM YYYY']).format('DD-MM-YYYY'), '11-05-1989');
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, HH:mm:ss',       'կիրակի, 14 փետրվարի 2010, 15:25:50'],
             ['ddd, h A',                           'կրկ, 3 ցերեկվա'],
@@ -57,7 +58,7 @@ test('format', function (assert) {
     }
 });
 
-test('format meridiem', function (assert) {
+QUnit.test('format meridiem', function (assert) {
     assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'գիշերվա', 'night');
     assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'գիշերվա', 'night');
     assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'առավոտվա', 'morning');
@@ -68,7 +69,7 @@ test('format meridiem', function (assert) {
     assert.equal(moment([2012, 11, 28, 23, 59]).format('A'), 'երեկոյան', 'evening');
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1-ին', '1-ին');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2-րդ', '2-րդ');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '3-րդ', '3-րդ');
@@ -105,14 +106,14 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31-րդ', '31-րդ');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var expected = 'հունվար հնվ_փետրվար փտր_մարտ մրտ_ապրիլ ապր_մայիս մյս_հունիս հնս_հուլիս հլս_օգոստոս օգս_սեպտեմբեր սպտ_հոկտեմբեր հկտ_նոյեմբեր նմբ_դեկտեմբեր դկտ'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
-test('format month case', function (assert) {
+QUnit.test('format month case', function (assert) {
     var months = {
         'nominative': 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_'),
         'accusative': 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_')
@@ -123,7 +124,7 @@ test('format month case', function (assert) {
     }
 });
 
-test('format month short case', function (assert) {
+QUnit.test('format month short case', function (assert) {
     var monthsShort = {
         'nominative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_'),
         'accusative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_')
@@ -134,7 +135,7 @@ test('format month short case', function (assert) {
     }
 });
 
-test('format month case with escaped symbols', function (assert) {
+QUnit.test('format month case with escaped symbols', function (assert) {
     var months = {
         'nominative': 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_'),
         'accusative': 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_')
@@ -147,7 +148,7 @@ test('format month case with escaped symbols', function (assert) {
     }
 });
 
-test('format month short case with escaped symbols', function (assert) {
+QUnit.test('format month short case with escaped symbols', function (assert) {
     var monthsShort = {
         'nominative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_'),
         'accusative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_')
@@ -160,14 +161,14 @@ test('format month short case with escaped symbols', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var expected = 'կիրակի կրկ կրկ_երկուշաբթի երկ երկ_երեքշաբթի երք երք_չորեքշաբթի չրք չրք_հինգշաբթի հնգ հնգ_ուրբաթ ուրբ ուրբ_շաբաթ շբթ շբթ'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'մի քանի վայրկյան',    '44 seconds = seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'րոպե',   '45 seconds = a minute');
@@ -201,17 +202,17 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 տարի',    '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'մի քանի վայրկյան հետո', 'prefix');
     assert.equal(moment(0).from(30000), 'մի քանի վայրկյան առաջ', 'suffix');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'մի քանի վայրկյան հետո', 'in seconds');
     assert.equal(moment().add({d: 5}).fromNow(), '5 օր հետո', 'in 5 days');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   'այսօր 12:00',   'today at the same time');
@@ -222,7 +223,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'երեկ 12:00',    'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m;
     function makeFormat(d) {
         return 'dddd [օրը ժամը] LT';
@@ -238,7 +239,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m;
 
     function makeFormat(d) {
@@ -255,7 +256,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -269,7 +270,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+QUnit.test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-ին', 'Dec 26 2011 should be week 1');
     assert.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-ին', 'Jan  1 2012 should be week 1');
     assert.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2-րդ', 'Jan  2 2012 should be week 2');

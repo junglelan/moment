@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('br');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = 'Genver Gen_C\'hwevrer C\'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -20,7 +21,7 @@ test('parse', function (assert) {
     }
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     moment.locale('br');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sul, C\'hwevrer 14vet 2010, 3:25:50 pm'],
@@ -48,7 +49,7 @@ test('format', function (assert) {
     }
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     moment.locale('br');
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1añ', '1añ');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2vet', '2vet');
@@ -86,7 +87,7 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31vet', '31vet');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     moment.locale('br');
     var expected = 'Genver Gen_C\'hwevrer C\'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
@@ -94,7 +95,7 @@ test('format month', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     moment.locale('br');
     var expected = 'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc\'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
@@ -102,7 +103,7 @@ test('format week', function (assert) {
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     moment.locale('br');
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'un nebeud segondennoù', '44 seconds = a few seconds');
@@ -135,24 +136,24 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 bloaz',       '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     moment.locale('br');
     assert.equal(moment(30000).from(0), 'a-benn un nebeud segondennoù',  'prefix');
     assert.equal(moment(0).from(30000), 'un nebeud segondennoù \'zo', 'suffix');
 });
 
-test('now from now', function (assert) {
+QUnit.test('now from now', function (assert) {
     moment.locale('br');
     assert.equal(moment().fromNow(), 'un nebeud segondennoù \'zo',  'now from now should display as in the past');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     moment.locale('br');
     assert.equal(moment().add({s: 30}).fromNow(), 'a-benn un nebeud segondennoù', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'a-benn 5 devezh', 'in 5 days');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     moment.locale('br');
 
     var a = moment().hours(12).minutes(0).seconds(0);
@@ -165,7 +166,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 12e00 PM',       'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     moment.locale('br');
 
     var i, m;
@@ -179,7 +180,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     moment.locale('br');
 
     var i, m;
@@ -193,7 +194,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     moment.locale('br');
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
@@ -208,7 +209,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('special mutations for years', function (assert) {
+QUnit.test('special mutations for years', function (assert) {
     moment.locale('br');
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), 'ur bloaz', 'mutation 1 year');

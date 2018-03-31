@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('min max');
 
-test('min', function (assert) {
+QUnit.test('min', function (assert) {
     var now = moment(),
         future = now.clone().add(1, 'month'),
         past = now.clone().subtract(1, 'month'),
@@ -25,7 +26,7 @@ test('min', function (assert) {
     assert.equal(moment.min([invalid, now]), invalid, 'min(invalid, now)');
 });
 
-test('max', function (assert) {
+QUnit.test('max', function (assert) {
     var now = moment(),
         future = now.clone().add(1, 'month'),
         past = now.clone().subtract(1, 'month'),

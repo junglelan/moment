@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('is between');
 
-test('is between without units', function (assert) {
+QUnit.test('is between without units', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
@@ -72,7 +73,7 @@ test('is between without units', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween second should not change moment');
 });
 
-test('is between without units inclusivity', function (assert) {
+QUnit.test('is between without units inclusivity', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBetween(
         moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
@@ -139,7 +140,7 @@ test('is between without units inclusivity', function (assert) {
         moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '[]'), true, 'start and end inclusive, should handle same end and start date');
 });
 
-test('is between milliseconds inclusivity', function (assert) {
+QUnit.test('is between milliseconds inclusivity', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isBetween(
         moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
@@ -209,7 +210,7 @@ test('is between milliseconds inclusivity', function (assert) {
         moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive, should handle same end and start date');
 });
 
-test('is between year', function (assert) {
+QUnit.test('is between year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 5, 6, 7, 8, 9, 10)),
@@ -230,7 +231,7 @@ test('is between year', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween year should not change moment');
 });
 
-test('is between month', function (assert) {
+QUnit.test('is between month', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 6, 7, 8, 9, 10)),
@@ -251,7 +252,7 @@ test('is between month', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween month should not change moment');
 });
 
-test('is between day', function (assert) {
+QUnit.test('is between day', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
@@ -272,7 +273,7 @@ test('is between day', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween day should not change moment');
 });
 
-test('is between hour', function (assert) {
+QUnit.test('is between hour', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 2, 3, 5, 9, 10)),
@@ -293,7 +294,7 @@ test('is between hour', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween hour should not change moment');
 });
 
-test('is between minute', function (assert) {
+QUnit.test('is between minute', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 2, 3, 4, 9, 10)),
@@ -314,7 +315,7 @@ test('is between minute', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween minute should not change moment');
 });
 
-test('is between second', function (assert) {
+QUnit.test('is between second', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 2, 3, 4, 5, 10)),
@@ -335,7 +336,7 @@ test('is between second', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween second should not change moment');
 });
 
-test('is between millisecond', function (assert) {
+QUnit.test('is between millisecond', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
                 moment(new Date(2011, 1, 2, 3, 4, 5, 6)),

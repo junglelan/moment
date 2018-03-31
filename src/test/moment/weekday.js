@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('week day');
 
-test('iso weekday', function (assert) {
+QUnit.test('iso weekday', function (assert) {
     var i;
 
     for (i = 0; i < 7; ++i) {
@@ -18,7 +19,7 @@ test('iso weekday', function (assert) {
     }
 });
 
-test('iso weekday setter', function (assert) {
+QUnit.test('iso weekday setter', function (assert) {
     var a = moment([2011, 0, 10]);
     assert.equal(moment(a).isoWeekday(1).date(),  10, 'set from mon to mon');
     assert.equal(moment(a).isoWeekday(4).date(),  13, 'set from mon to thu');
@@ -53,7 +54,7 @@ test('iso weekday setter', function (assert) {
     assert.equal(moment(a).isoWeekday(14).date(), 23, 'set from sun to next sun');
 });
 
-test('iso weekday setter with day name', function (assert) {
+QUnit.test('iso weekday setter with day name', function (assert) {
     moment.locale('en');
 
     var a = moment([2011, 0, 10]);
@@ -72,7 +73,7 @@ test('iso weekday setter with day name', function (assert) {
     assert.equal(moment(a).isoWeekday('Sunday').date(),   16, 'set from sun to sun');
 });
 
-test('weekday first day of week Sunday (dow 0)', function (assert) {
+QUnit.test('weekday first day of week Sunday (dow 0)', function (assert) {
     moment.locale('dow: 0,doy: 6', {week: {dow: 0, doy: 6}});
     assert.equal(moment([1985, 1,  3]).weekday(), 0, 'Feb  3 1985 is Sunday    -- 0th day');
     assert.equal(moment([2029, 8, 17]).weekday(), 1, 'Sep 17 2029 is Monday    -- 1st day');
@@ -83,7 +84,7 @@ test('weekday first day of week Sunday (dow 0)', function (assert) {
     assert.equal(moment([2000, 0,  1]).weekday(), 6, 'Jan  1 2000 is Saturday  -- 6th day');
 });
 
-test('weekday first day of week Monday (dow 1)', function (assert) {
+QUnit.test('weekday first day of week Monday (dow 1)', function (assert) {
     moment.locale('dow: 1,doy: 6', {week: {dow: 1, doy: 6}});
     assert.equal(moment([1985, 1,  4]).weekday(), 0, 'Feb  4 1985 is Monday    -- 0th day');
     assert.equal(moment([2029, 8, 18]).weekday(), 1, 'Sep 18 2029 is Tuesday   -- 1st day');
@@ -94,7 +95,7 @@ test('weekday first day of week Monday (dow 1)', function (assert) {
     assert.equal(moment([2000, 0,  2]).weekday(), 6, 'Jan  2 2000 is Sunday    -- 6th day');
 });
 
-test('weekday first day of week Tuesday (dow 2)', function (assert) {
+QUnit.test('weekday first day of week Tuesday (dow 2)', function (assert) {
     moment.locale('dow: 2,doy: 6', {week: {dow: 2, doy: 6}});
     assert.equal(moment([1985, 1,  5]).weekday(), 0, 'Feb  5 1985 is Tuesday   -- 0th day');
     assert.equal(moment([2029, 8, 19]).weekday(), 1, 'Sep 19 2029 is Wednesday -- 1st day');
@@ -105,7 +106,7 @@ test('weekday first day of week Tuesday (dow 2)', function (assert) {
     assert.equal(moment([2000, 0,  3]).weekday(), 6, 'Jan  3 2000 is Monday    -- 6th day');
 });
 
-test('weekday first day of week Wednesday (dow 3)', function (assert) {
+QUnit.test('weekday first day of week Wednesday (dow 3)', function (assert) {
     moment.locale('dow: 3,doy: 6', {week: {dow: 3, doy: 6}});
     assert.equal(moment([1985, 1,  6]).weekday(), 0, 'Feb  6 1985 is Wednesday -- 0th day');
     assert.equal(moment([2029, 8, 20]).weekday(), 1, 'Sep 20 2029 is Thursday  -- 1st day');
@@ -117,7 +118,7 @@ test('weekday first day of week Wednesday (dow 3)', function (assert) {
     moment.locale('dow:3,doy:6', null);
 });
 
-test('weekday first day of week Thursday (dow 4)', function (assert) {
+QUnit.test('weekday first day of week Thursday (dow 4)', function (assert) {
     moment.locale('dow: 4,doy: 6', {week: {dow: 4, doy: 6}});
     assert.equal(moment([1985, 1,  7]).weekday(), 0, 'Feb  7 1985 is Thursday  -- 0th day');
     assert.equal(moment([2029, 8, 21]).weekday(), 1, 'Sep 21 2029 is Friday    -- 1st day');
@@ -128,7 +129,7 @@ test('weekday first day of week Thursday (dow 4)', function (assert) {
     assert.equal(moment([2000, 0,  5]).weekday(), 6, 'Jan  5 2000 is Wednesday -- 6th day');
 });
 
-test('weekday first day of week Friday (dow 5)', function (assert) {
+QUnit.test('weekday first day of week Friday (dow 5)', function (assert) {
     moment.locale('dow: 5,doy: 6', {week: {dow: 5, doy: 6}});
     assert.equal(moment([1985, 1,  8]).weekday(), 0, 'Feb  8 1985 is Friday    -- 0th day');
     assert.equal(moment([2029, 8, 22]).weekday(), 1, 'Sep 22 2029 is Staturday -- 1st day');
@@ -139,7 +140,7 @@ test('weekday first day of week Friday (dow 5)', function (assert) {
     assert.equal(moment([2000, 0,  6]).weekday(), 6, 'Jan  6 2000 is Thursday  -- 6th day');
 });
 
-test('weekday first day of week Saturday (dow 6)', function (assert) {
+QUnit.test('weekday first day of week Saturday (dow 6)', function (assert) {
     moment.locale('dow: 6,doy: 6', {week: {dow: 6, doy: 6}});
     assert.equal(moment([1985, 1,  9]).weekday(), 0, 'Feb  9 1985 is Staturday -- 0th day');
     assert.equal(moment([2029, 8, 23]).weekday(), 1, 'Sep 23 2029 is Sunday    -- 1st day');

@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+
 import moment from '../../moment';
+import { module } from '../qunit';
 
 module('getters and setters');
 
-test('getters', function (assert) {
+QUnit.test('getters', function (assert) {
     var a = moment([2011, 9, 12, 6, 7, 8, 9]);
     assert.equal(a.year(), 2011, 'year');
     assert.equal(a.month(), 9, 'month');
@@ -15,7 +16,7 @@ test('getters', function (assert) {
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 });
 
-test('getters programmatic', function (assert) {
+QUnit.test('getters programmatic', function (assert) {
     var a = moment([2011, 9, 12, 6, 7, 8, 9]);
     assert.equal(a.get('year'), 2011, 'year');
     assert.equal(a.get('month'), 9, 'month');
@@ -37,9 +38,9 @@ test('getters programmatic', function (assert) {
     assert.equal(moment([2016,0,1]).get({year:2015}).year(), 2016, 'getter no longer sets values when passed an object');
 });
 
-test('setters plural', function (assert) {
+QUnit.test('setters plural', function (assert) {
     var a = moment();
-    test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
+    QUnit.test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
 
     a.years(2011);
     a.months(9);
@@ -58,7 +59,7 @@ test('setters plural', function (assert) {
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 });
 
-test('setters singular', function (assert) {
+QUnit.test('setters singular', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -77,7 +78,7 @@ test('setters singular', function (assert) {
     assert.equal(a.millisecond(), 9, 'milliseconds');
 });
 
-test('setters', function (assert) {
+QUnit.test('setters', function (assert) {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -101,7 +102,7 @@ test('setters', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
-test('setters should handle garbage input', function (assert) {
+QUnit.test('setters should handle garbage input', function (assert) {
     var a = moment();
     a.set('year', 2011);
     a.set('month', 9);
@@ -130,7 +131,7 @@ test('setters should handle garbage input', function (assert) {
     assert.equal(a.milliseconds(), 9, 'milliseconds - provided Infinity');
 });
 
-test('setter programmatic', function (assert) {
+QUnit.test('setter programmatic', function (assert) {
     var a = moment();
     a.set('year', 2011);
     a.set('month', 9);
@@ -154,7 +155,7 @@ test('setter programmatic', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
-test('setters programatic with weeks', function (assert) {
+QUnit.test('setters programatic with weeks', function (assert) {
     var a = moment();
     a.set('weekYear', 2001);
     a.set('week', 49);
@@ -168,7 +169,7 @@ test('setters programatic with weeks', function (assert) {
     assert.equal(a.weekday(), 1, 'weekday');
 });
 
-test('setters programatic with weeks ISO', function (assert) {
+QUnit.test('setters programatic with weeks ISO', function (assert) {
     var a = moment();
     a.set('isoWeekYear', 2001);
     a.set('isoWeek', 49);
@@ -179,7 +180,7 @@ test('setters programatic with weeks ISO', function (assert) {
     assert.equal(a.isoWeekday(), 4, 'isoWeekday');
 });
 
-test('setters strings', function (assert) {
+QUnit.test('setters strings', function (assert) {
     var a = moment([2012]).locale('en');
     assert.equal(a.clone().day(0).day('Wednesday').day(), 3, 'day full name');
     assert.equal(a.clone().day(0).day('Wed').day(), 3, 'day short name');
@@ -190,7 +191,7 @@ test('setters strings', function (assert) {
     assert.equal(a.clone().month(0).month('invalid').month(), 0, 'invalid month name');
 });
 
-test('setters - falsey values', function (assert) {
+QUnit.test('setters - falsey values', function (assert) {
     var a = moment();
     // ensure minutes wasn't coincidentally 0 already
     a.minutes(1);
@@ -198,7 +199,7 @@ test('setters - falsey values', function (assert) {
     assert.equal(a.minutes(), 0, 'falsey value');
 });
 
-test('chaining setters', function (assert) {
+QUnit.test('chaining setters', function (assert) {
     var a = moment();
     a.year(2011)
      .month(9)
@@ -215,7 +216,7 @@ test('chaining setters', function (assert) {
     assert.equal(a.seconds(), 8, 'second');
 });
 
-test('setter with multiple unit values', function (assert) {
+QUnit.test('setter with multiple unit values', function (assert) {
     var a = moment();
     a.set({
         year: 2011,
@@ -240,7 +241,7 @@ test('setter with multiple unit values', function (assert) {
     assert.equal(c.set({quarter: 3}).quarter(), 3, 'quarter sets correctly with object syntax');
 });
 
-test('day setter', function (assert) {
+QUnit.test('day setter', function (assert) {
     var a = moment([2011, 0, 15]);
     assert.equal(moment(a).day(0).date(), 9, 'set from saturday to sunday');
     assert.equal(moment(a).day(6).date(), 15, 'set from saturday to saturday');
@@ -269,7 +270,7 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
 });
 
-test('year setter', function (assert) {
+QUnit.test('year setter', function (assert) {
     var a = moment([2015, 3, 15]);
     assert.equal(moment(a).year(2016).format('YYYY-MM-DD'), '2016-04-15', 'set from 2015 to 2016');
     assert.equal(moment(a).year(2011).format('YYYY-MM-DD'), '2011-04-15', 'set from 2015 to 2011');
@@ -283,7 +284,7 @@ test('year setter', function (assert) {
     assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
 });
 
-test('object set ordering', function (assert) {
+QUnit.test('object set ordering', function (assert) {
     var a = moment([2016,3,30]);
     assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
     var b = moment([2015,1,28]);
@@ -298,7 +299,7 @@ test('object set ordering', function (assert) {
     assert.equal(c.format('YYYY-MM-DDTHH:mm'), '2016-03-14T02:30', 'setting hours, minutes date puts date first allowing time set to work');
 });
 
-test('string setters', function (assert) {
+QUnit.test('string setters', function (assert) {
     var a = moment();
     a.year('2011');
     a.month('9');
@@ -317,7 +318,7 @@ test('string setters', function (assert) {
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 });
 
-test('setters across DST +1', function (assert) {
+QUnit.test('setters across DST +1', function (assert) {
     var oldUpdateOffset = moment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-03-09T02:00:00-08:00').parseZone(),
@@ -350,7 +351,7 @@ test('setters across DST +1', function (assert) {
     moment.updateOffset = oldUpdateOffset;
 });
 
-test('setters across DST -1', function (assert) {
+QUnit.test('setters across DST -1', function (assert) {
     var oldUpdateOffset = moment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-11-02T02:00:00-07:00').parseZone(),

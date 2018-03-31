@@ -1,9 +1,10 @@
-import { module, test } from '../qunit';
+import { module } from '../qunit';
+
 import moment from '../../moment';
 
 module('is same or after');
 
-test('is same or after without units', function (assert) {
+QUnit.test('is same or after without units', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), false, 'year is later');
     assert.equal(m.isSameOrAfter(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), true, 'year is earlier');
@@ -24,7 +25,7 @@ test('is same or after without units', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter second should not change moment');
 });
 
-test('is same or after year', function (assert) {
+QUnit.test('is same or after year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'year'), true, 'year match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'years'), true, 'plural should work');
@@ -38,7 +39,7 @@ test('is same or after year', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter year should not change moment');
 });
 
-test('is same or after month', function (assert) {
+QUnit.test('is same or after month', function (assert) {
     var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 2, 6, 7, 8, 9, 10)), 'month'), true, 'month match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 2, 6, 7, 8, 9, 10)), 'months'), true, 'plural should work');
@@ -54,7 +55,7 @@ test('is same or after month', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter month should not change moment');
 });
 
-test('is same or after day', function (assert) {
+QUnit.test('is same or after day', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 7, 8, 9, 10)), 'day'), true, 'day match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 7, 8, 9, 10)), 'days'), true, 'plural should work');
@@ -72,7 +73,7 @@ test('is same or after day', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter day should not change moment');
 });
 
-test('is same or after hour', function (assert) {
+QUnit.test('is same or after hour', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 8, 9, 10)), 'hour'), true, 'hour match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 8, 9, 10)), 'hours'), true, 'plural should work');
@@ -92,7 +93,7 @@ test('is same or after hour', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter hour should not change moment');
 });
 
-test('is same or after minute', function (assert) {
+QUnit.test('is same or after minute', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 4, 9, 10)), 'minute'), true, 'minute match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 4, 9, 10)), 'minutes'), true, 'plural should work');
@@ -114,7 +115,7 @@ test('is same or after minute', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter minute should not change moment');
 });
 
-test('is same or after second', function (assert) {
+QUnit.test('is same or after second', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 4, 5, 10)), 'second'), true, 'second match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 1, 2, 3, 4, 5, 10)), 'seconds'), true, 'plural should work');
@@ -138,7 +139,7 @@ test('is same or after second', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter second should not change moment');
 });
 
-test('is same or after millisecond', function (assert) {
+QUnit.test('is same or after millisecond', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'millisecond'), true, 'millisecond match');
     assert.equal(m.isSameOrAfter(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds'), true, 'plural should work');
@@ -160,14 +161,14 @@ test('is same or after millisecond', function (assert) {
     assert.equal(+m, +mCopy, 'isSameOrAfter millisecond should not change moment');
 });
 
-test('is same or after with utc offset moments', function (assert) {
+QUnit.test('is same or after with utc offset moments', function (assert) {
     assert.ok(moment.parseZone('2013-02-01T00:00:00-05:00').isSameOrAfter(moment('2013-02-01'), 'year'), 'zoned vs local moment');
     assert.ok(moment('2013-02-01').isSameOrAfter(moment('2013-02-01').utcOffset('-05:00'), 'year'), 'local vs zoned moment');
     assert.ok(moment.parseZone('2013-02-01T00:00:00-05:00').isSameOrAfter(moment.parseZone('2013-02-01T00:00:00-06:30'), 'year'),
             'zoned vs (differently) zoned moment');
 });
 
-test('is same or after with invalid moments', function (assert) {
+QUnit.test('is same or after with invalid moments', function (assert) {
     var m = moment(), invalid = moment.invalid();
     assert.equal(invalid.isSameOrAfter(invalid), false, 'invalid moments are not considered equal');
     assert.equal(m.isSameOrAfter(invalid), false, 'valid moment is not after invalid moment');

@@ -1,8 +1,9 @@
-import {localeModule, test} from '../qunit';
+
+import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('ru');
 
-test('parse', function (assert) {
+QUnit.test('parse', function (assert) {
     var tests = 'январь янв._февраль февр._март март_апрель апр._май май_июнь июнь_июль июль_август авг._сентябрь сент._октябрь окт._ноябрь нояб._декабрь дек.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -30,11 +31,11 @@ test('parse', function (assert) {
     }
 });
 
-test('parse exceptional case', function (assert) {
+QUnit.test('parse exceptional case', function (assert) {
     assert.equal(moment('11 Мая 1989', ['DD MMMM YYYY']).format('DD-MM-YYYY'), '11-05-1989');
 });
 
-test('format', function (assert) {
+QUnit.test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, HH:mm:ss',       'воскресенье, 14-го февраля 2010, 15:25:50'],
             ['ddd, h A',                           'вс, 3 дня'],
@@ -68,7 +69,7 @@ test('format', function (assert) {
     }
 });
 
-test('format meridiem', function (assert) {
+QUnit.test('format meridiem', function (assert) {
     assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'ночи', 'night');
     assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'ночи', 'night');
     assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'утра', 'morning');
@@ -79,7 +80,7 @@ test('format meridiem', function (assert) {
     assert.equal(moment([2012, 11, 28, 23, 59]).format('A'), 'вечера', 'evening');
 });
 
-test('format ordinal', function (assert) {
+QUnit.test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1-й', '1-й');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2-й', '2-й');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '3-й', '3-й');
@@ -116,14 +117,14 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31-й', '31-й');
 });
 
-test('format month', function (assert) {
+QUnit.test('format month', function (assert) {
     var expected = 'январь янв._февраль февр._март март_апрель апр._май май_июнь июнь_июль июль_август авг._сентябрь сент._октябрь окт._ноябрь нояб._декабрь дек.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
-test('format month case', function (assert) {
+QUnit.test('format month case', function (assert) {
     var months = {
         'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
         'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
@@ -134,7 +135,7 @@ test('format month case', function (assert) {
     }
 });
 
-test('format month short case', function (assert) {
+QUnit.test('format month short case', function (assert) {
     var monthsShort = {
         'nominative': 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split('_'),
         'accusative': 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split('_')
@@ -145,7 +146,7 @@ test('format month short case', function (assert) {
     }
 });
 
-test('format month case with escaped symbols', function (assert) {
+QUnit.test('format month case with escaped symbols', function (assert) {
     var months = {
         'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
         'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
@@ -158,7 +159,7 @@ test('format month case with escaped symbols', function (assert) {
     }
 });
 
-test('format month short case with escaped symbols', function (assert) {
+QUnit.test('format month short case with escaped symbols', function (assert) {
     var monthsShort = {
         'nominative': 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split('_'),
         'accusative': 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split('_')
@@ -171,14 +172,14 @@ test('format month short case with escaped symbols', function (assert) {
     }
 });
 
-test('format week', function (assert) {
+QUnit.test('format week', function (assert) {
     var expected = 'воскресенье вс вс_понедельник пн пн_вторник вт вт_среда ср ср_четверг чт чт_пятница пт пт_суббота сб сб'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });
 
-test('from', function (assert) {
+QUnit.test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'несколько секунд',    '44 seconds = seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'минута',   '45 seconds = a minute');
@@ -213,19 +214,19 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 лет',    '5 years = 5 years');
 });
 
-test('suffix', function (assert) {
+QUnit.test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'через несколько секунд', 'prefix');
     assert.equal(moment(0).from(30000), 'несколько секунд назад', 'suffix');
 });
 
-test('fromNow', function (assert) {
+QUnit.test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'через несколько секунд', 'in seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'через 5 дней', 'in 5 days');
     assert.equal(moment().add({m: 31}).fromNow(), 'через 31 минуту', 'in 31 minutes = in 31 minutes');
     assert.equal(moment().subtract({m: 31}).fromNow(), '31 минуту назад', '31 minutes ago = 31 minutes ago');
 });
 
-test('calendar day', function (assert) {
+QUnit.test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(moment(a).calendar(),                   'Сегодня в 12:00',     'today at the same time');
@@ -237,7 +238,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 12:00',       'yesterday at the same time');
 });
 
-test('calendar next week', function (assert) {
+QUnit.test('calendar next week', function (assert) {
     var i, m, now;
 
     function makeFormatNext(d) {
@@ -285,7 +286,7 @@ test('calendar next week', function (assert) {
     }
 });
 
-test('calendar last week', function (assert) {
+QUnit.test('calendar last week', function (assert) {
     var i, m, now;
 
     function makeFormatLast(d) {
@@ -333,7 +334,7 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('calendar all else', function (assert) {
+QUnit.test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
@@ -347,7 +348,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('weeks year starting monday formatted', function (assert) {
+QUnit.test('weeks year starting monday formatted', function (assert) {
     assert.equal(moment([2011, 11, 26]).format('w ww wo'), '52 52 52-я', 'Dec 26 2011 should be week 52');
     assert.equal(moment([2012,  0,  1]).format('w ww wo'), '52 52 52-я', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012,  0,  2]).format('w ww wo'), '1 01 1-я', 'Jan  2 2012 should be week 1');
